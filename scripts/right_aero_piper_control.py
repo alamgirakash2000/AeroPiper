@@ -109,7 +109,7 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
         # Smooth random arm movement
         if t >= next_arm_change:
             current_arm_targets = next_arm_targets.copy()
-            next_arm_targets =np.append(np.zeros(5), 1.74)
+            next_arm_targets =np.random.uniform(-0.5, 0.5, 6)
             next_arm_change = t + arm_change_interval
         
         # Interpolate between current and next arm targets

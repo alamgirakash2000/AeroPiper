@@ -85,9 +85,26 @@ def build_left_variant(src: Path, dst: Path) -> None:
                 b.set('pos', '0 0.40 0')
                 break
 
+    # 5) Fix the hand orientation in dual scene: flip mount and palm quaternions to match right hand
+    def find_body_recursive(parent, name):
+        for b in parent.findall('.//body'):
+            if b.get('name') == name:
+                return b
+        return None
+    
+    # Find and fix tetheria_mount orientation (thumb on top)
+    mount = find_body_recursive(root, 'left_tetheria_mount')
+    if mount is not None:
+        mount.set('quat', '-0.5 0.5 0.5 0.5')  # Match right hand orientation
+    
+    # Find and fix palm orientation (mount on back of hand, not palm)
+    palm = find_body_recursive(root, 'left_palm')
+    if palm is not None:
+        palm.set('quat', '0.4056064898 -0.5792092674 0.5792092674 -0.4056064898')  # Flip palm
+
     dst.write_text(ET.tostring(root, encoding='unicode'))
 
-# Always (re)build the left variant to ensure it’s up-to-date
+# Always (re)build the left variant to ensure it's up-to-date
 def build_right_variant(src: Path, dst: Path) -> None:
     xml_text = src.read_text()
     tree = ET.ElementTree(ET.fromstring(xml_text))
@@ -96,7 +113,7 @@ def build_right_variant(src: Path, dst: Path) -> None:
     worldbody = root.find('worldbody')
     if worldbody is not None:
         for b in worldbody.findall('body'):
-            if b.get('name') == 'base_link':
+            if b.get('name') == 'right_base_link':
                 b.set('pos', '0 -0.40 0')
                 break
     dst.write_text(ET.tostring(root, encoding='unicode'))
@@ -106,6 +123,16 @@ if left_src.exists():
     build_left_variant(left_src, left_variant)
 if right_src.exists():
     build_right_variant(right_src, right_variant)
+
+# Function to clean up temporary variant files
+def cleanup_variants():
+    """Remove temporary variant XML files."""
+    if left_variant.exists():
+        left_variant.unlink()
+        print(f"Cleaned up: {left_variant}")
+    if right_variant.exists():
+        right_variant.unlink()
+        print(f"Cleaned up: {right_variant}")
 
 # Load the dual scene (right + left)
 model = mujoco.MjModel.from_xml_path("aero_piper/scene_dual.xml")
@@ -175,57 +202,81 @@ RIGHT_HAND_SLICE = slice(6, 13)
 LEFT_ARM_SLICE = slice(13, 19)
 LEFT_HAND_SLICE = slice(19, 26)
 
+# Use try-finally to ensure cleanup even if interrupted (Ctrl+C)
+import atexit
+import signal
 
-with mujoco.viewer.launch_passive(model, data) as viewer:
-    t = 0.0
+# Register cleanup to run on exit (handles normal exit and signals)
+atexit.register(cleanup_variants)
 
-    # Separate arm target generators per robot
-    rng_right = np.random.default_rng(7)
-    rng_left = np.random.default_rng(21)
+# Also handle termination signals explicitly
+def signal_handler(signum, frame):
+    print(f"\nReceived signal {signum}, cleaning up...")
+    cleanup_variants()
+    exit(0)
 
-    arm_change_interval = 3.0
-    next_arm_change = arm_change_interval
+signal.signal(signal.SIGINT, signal_handler)  # Ctrl+C
+signal.signal(signal.SIGTERM, signal_handler)  # Termination
 
-    current_arm_right = np.zeros(6)
-    next_arm_right = rng_right.uniform(-0.5, 0.5, 6)
+try:
+    with mujoco.viewer.launch_passive(model, data) as viewer:
+        t = 0.0
 
-    current_arm_left = np.zeros(6)
-    next_arm_left = rng_left.uniform(-0.5, 0.5, 6)
+        # Separate arm target generators per robot
+        rng_right = np.random.default_rng(7)
+        rng_left = np.random.default_rng(21)
 
-    # Pre-slice ctrl ranges for hands
-    right_hand_ctrlrange = ctrlrange[RIGHT_HAND_SLICE]
-    left_hand_ctrlrange = ctrlrange[LEFT_HAND_SLICE]
+        arm_change_interval = 3.0
+        next_arm_change = arm_change_interval
 
-    while viewer.is_running():
-        if t >= next_arm_change:
-            current_arm_right = next_arm_right.copy()
-            current_arm_left = next_arm_left.copy()
+        current_arm_right = np.zeros(6)
+        next_arm_right = rng_right.uniform(-0.5, 0.5, 6)
 
-            next_arm_right = rng_right.uniform(-0.5, 0.5, 6)
-            next_arm_left = rng_left.uniform(-0.5, 0.5, 6)
-            next_arm_change = t + arm_change_interval
+        current_arm_left = np.zeros(6)
+        next_arm_left = rng_left.uniform(-0.5, 0.5, 6)
 
-        # Smooth interpolation (same timing, independent targets)
-        phase = (t - (next_arm_change - arm_change_interval)) / arm_change_interval
-        phase = float(np.clip(phase, 0.0, 1.0))
-        smooth = 3 * phase**2 - 2 * phase**3
+        # Pre-slice ctrl ranges for hands
+        right_hand_ctrlrange = ctrlrange[RIGHT_HAND_SLICE]
+        left_hand_ctrlrange = ctrlrange[LEFT_HAND_SLICE]
 
-        arm_targets_right = current_arm_right + (next_arm_right - current_arm_right) * smooth
-        arm_targets_left = current_arm_left + (next_arm_left - current_arm_left) * smooth
+        while viewer.is_running():
+            if t >= next_arm_change:
+                current_arm_right = next_arm_right.copy()
+                current_arm_left = next_arm_left.copy()
 
-        # Independent hand gesture cycles (left shifted by +1s)
-        hand_targets_right = gesture_sequence(t, right_hand_ctrlrange, GESTURE_SEQUENCE, hold_time=2.0, transition_time=1.0)
-        hand_targets_left = gesture_sequence(t + 1.0, left_hand_ctrlrange, GESTURE_SEQUENCE, hold_time=2.0, transition_time=1.0)
+                next_arm_right = rng_right.uniform(-0.5, 0.5, 6)
+                next_arm_left = rng_left.uniform(-0.5, 0.5, 6)
+                next_arm_change = t + arm_change_interval
 
-        # Build per-robot 13-length vectors
-        targets_right = np.concatenate([arm_targets_right, hand_targets_right])
-        targets_left = np.concatenate([arm_targets_left, hand_targets_left])
+            # Smooth interpolation (same timing, independent targets)
+            phase = (t - (next_arm_change - arm_change_interval)) / arm_change_interval
+            phase = float(np.clip(phase, 0.0, 1.0))
+            smooth = 3 * phase**2 - 2 * phase**3
 
-        # Concatenate as [right 13 | left 13]
-        data.ctrl[:] = np.concatenate([targets_right, targets_left])
+            arm_targets_right = current_arm_right + (next_arm_right - current_arm_right) * smooth
+            arm_targets_left = current_arm_left + (next_arm_left - current_arm_left) * smooth
 
-        mujoco.mj_step(model, data)
-        viewer.sync()
-        t += model.opt.timestep
+            # Independent hand gesture cycles (left shifted by +1s)
+            hand_targets_right = gesture_sequence(t, right_hand_ctrlrange, GESTURE_SEQUENCE, hold_time=2.0, transition_time=1.0)
+            hand_targets_left = gesture_sequence(t + 1.0, left_hand_ctrlrange, GESTURE_SEQUENCE, hold_time=2.0, transition_time=1.0)
+
+            # Build per-robot 13-length vectors
+            targets_right = np.concatenate([arm_targets_right, hand_targets_right])
+            targets_left = np.concatenate([arm_targets_left, hand_targets_left])
+
+            # Concatenate as [right 13 | left 13]
+            data.ctrl[:] = np.concatenate([targets_right, targets_left])
+
+            mujoco.mj_step(model, data)
+            viewer.sync()
+            t += model.opt.timestep
+
+except KeyboardInterrupt:
+    print("\nInterrupted by user")
+finally:
+    # Always clean up temporary variant files, even if interrupted
+    print("\nCleaning up temporary files...")
+    cleanup_variants()
+
 
 
