@@ -3,7 +3,7 @@ import mujoco.viewer
 import numpy as np
 
 # Load the scene with right hand (which includes the robot model)
-model = mujoco.MjModel.from_xml_path("aero_piper/scene_right.xml")
+model = mujoco.MjModel.from_xml_path("assets/scene_right.xml")
 data = mujoco.MjData(model)
 
 print(f"Number of actuators: {model.nu}")

@@ -24,9 +24,9 @@
     <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
   </asset>
 
-  <!-- Include both robots. Right variant is shifted to -Y; Left variant is shifted to +Y (no defaults). -->
-  <include file="aero_piper_right_shifted.xml"/>
-  <include file="aero_piper_left_nodefault_shifted.xml"/>
+  <!-- Include both robots (now internally namespaced/offset). -->
+  <include file="aero_piper_right.xml"/>
+  <include file="aero_piper_left.xml"/>
 
   <worldbody>
     <light pos="0 0 1.5" dir="0 0 -1" directional="true"/>

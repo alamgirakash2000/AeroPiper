@@ -261,7 +261,7 @@
 
   <worldbody>
     <!-- Robot will be placed in scene -->
-    <body name="right_base_link" childclass="piper" gravcomp="1">
+    <body name="right_base_link" childclass="piper" gravcomp="1" pos="0 -0.40 0">
       <inertial pos="-0.00979275 1.82906e-06 0.04101" quat="0.692988 -0.137524 -0.137826 0.69416" mass="0.162549" diaginertia="0.000269445 0.000227478 0.000221437"/>
       <geom class="visual" density="0" mesh="base_link" material="gray_mat"/>
       <geom class="collision" mesh="base_link"/>

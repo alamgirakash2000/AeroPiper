@@ -1,8 +1,8 @@
 # AeroPiper: TetherIA Aero Hand + AgileX PiPER Arm
 
 <p align="center">
-  <img src="images/piper.png" alt="PiPER Arm" width="35%"/>
-  <img src="images/aero_hand_open.png" alt="TetherIA Aero Hand" width="35%"/>
+  <img src="images/piper.png" alt="PiPER Arm" width="45%"/>
+  <img src="images/aero_hand_open.png" alt="TetherIA Aero Hand" width="45%"/>
   <br/>
 </p>
 
@@ -86,8 +86,8 @@ This takes ~3 minutes and calibrates the hand to its zero positions.
 ## Work in the MuJoCo Simulation
 
 <p align="center">
-  <img src="images/left.png" alt="Left setup" width="35%"/>
-  <img src="images/right.png" alt="Right setup" width="35%"/>
+  <img src="images/left.png" alt="Left setup" width="45%"/>
+  <img src="images/right.png" alt="Right setup" width="45%"/>
 </p>
 
 ### Left hand

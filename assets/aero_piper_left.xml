@@ -1,0 +1,822 @@
+<mujoco model="aero_piper_left">
+  <compiler angle="radian" meshdir="combined_arm_hand/assets" />
+
+  <asset>
+
+    <material name="left_gray_mat" rgba="0.59 0.59 0.59 1" />
+    <material name="left_light_gray_mat" rgba="0.98 0.98 0.98 1" />
+    <material name="left_light_medium_gray_mat" rgba="0.85 0.85 0.85 1" />
+    <material name="left_dark_gray_mat" rgba="0.086 0.086 0.086 1" />
+    <material name="left_darker_gray_mat" rgba="0.14 0.14 0.14 1" />
+    <material name="left_white_mat" rgba="1 1 1 1" />
+    <material name="left_red_mat" rgba="0.82 0.15 0.15 1" />
+    <material name="left_black_mat" rgba="0 0 0 1" />
+    <material name="left_light_blue" rgba="0.79 0.82 0.93 1" />
+
+    <mesh file="link2_0.obj" name="left_link2_0" />
+    <mesh file="link2_1.obj" name="left_link2_1" />
+    <mesh file="link2_2.obj" name="left_link2_2" />
+    <mesh file="link2_3.obj" name="left_link2_3" />
+    <mesh file="link2_4.obj" name="left_link2_4" />
+    <mesh file="link2_5.obj" name="left_link2_5" />
+    <mesh file="link2_6.obj" name="left_link2_6" />
+    <mesh file="link2_7.obj" name="left_link2_7" />
+    <mesh file="link2_8.obj" name="left_link2_8" />
+    <mesh file="link2_9.obj" name="left_link2_9" />
+    <mesh file="link2_10.obj" name="left_link2_10" />
+    <mesh file="link2_11.obj" name="left_link2_11" />
+    <mesh file="link2_12.obj" name="left_link2_12" />
+    <mesh file="link2_13.obj" name="left_link2_13" />
+    <mesh file="link2_14.obj" name="left_link2_14" />
+    <mesh file="link2_15.obj" name="left_link2_15" />
+    <mesh file="link2_16.obj" name="left_link2_16" />
+    <mesh file="link2_17.obj" name="left_link2_17" />
+    <mesh file="link2_18.obj" name="left_link2_18" />
+    <mesh file="link2_19.obj" name="left_link2_19" />
+    <mesh file="link2_20.obj" name="left_link2_20" />
+    <mesh file="link2_21.obj" name="left_link2_21" />
+    <mesh file="link2_22.obj" name="left_link2_22" />
+    <mesh file="link2_23.obj" name="left_link2_23" />
+    <mesh file="link2_24.obj" name="left_link2_24" />
+    <mesh file="link2_25.obj" name="left_link2_25" />
+    <mesh file="link2_26.obj" name="left_link2_26" />
+    <mesh file="link2_27.obj" name="left_link2_27" />
+    <mesh file="link2_28.obj" name="left_link2_28" />
+    <mesh file="link2_29.obj" name="left_link2_29" />
+    <mesh file="link2_30.obj" name="left_link2_30" />
+    <mesh file="link2_31.obj" name="left_link2_31" />
+    <mesh file="link3_0.obj" name="left_link3_0" />
+    <mesh file="link3_1.obj" name="left_link3_1" />
+    <mesh file="link3_2.obj" name="left_link3_2" />
+    <mesh file="link3_3.obj" name="left_link3_3" />
+    <mesh file="link3_4.obj" name="left_link3_4" />
+    <mesh file="link3_5.obj" name="left_link3_5" />
+    <mesh file="link3_7.obj" name="left_link3_7" />
+    <mesh file="link3_8.obj" name="left_link3_8" />
+    <mesh file="link3_9.obj" name="left_link3_9" />
+    <mesh file="link3_10.obj" name="left_link3_10" />
+    <mesh file="link3_11.obj" name="left_link3_11" />
+    <mesh file="link3_12.obj" name="left_link3_12" />
+    <mesh file="link3_13.obj" name="left_link3_13" />
+    <mesh file="link3_14.obj" name="left_link3_14" />
+    <mesh file="link3_15.obj" name="left_link3_15" />
+    <mesh file="link3_16.obj" name="left_link3_16" />
+    <mesh file="link3_17.obj" name="left_link3_17" />
+    <mesh file="link3_18.obj" name="left_link3_18" />
+    <mesh file="link3_19.obj" name="left_link3_19" />
+    <mesh file="link3_20.obj" name="left_link3_20" />
+    <mesh file="link3_21.obj" name="left_link3_21" />
+    <mesh file="link3_22.obj" name="left_link3_22" />
+    <mesh file="link3_23.obj" name="left_link3_23" />
+    <mesh file="link3_24.obj" name="left_link3_24" />
+    <mesh file="link3_25.obj" name="left_link3_25" />
+    <mesh file="link3_26.obj" name="left_link3_26" />
+    <mesh file="link3_27.obj" name="left_link3_27" />
+    <mesh file="link3_28.obj" name="left_link3_28" />
+    <mesh file="link4_2.obj" name="left_link4_2" />
+    <mesh file="link4_3.obj" name="left_link4_3" />
+    <mesh file="link4_4.obj" name="left_link4_4" />
+    <mesh file="link4_5.obj" name="left_link4_5" />
+    <mesh file="link4_6.obj" name="left_link4_6" />
+    <mesh file="link5_2.obj" name="left_link5_2" />
+    <mesh file="link5_3.obj" name="left_link5_3" />
+    <mesh file="link5_4.obj" name="left_link5_4" />
+    <mesh file="link5_5.obj" name="left_link5_5" />
+    <mesh file="link5_6.obj" name="left_link5_6" />
+    <mesh file="link5_7.obj" name="left_link5_7" />
+    <mesh file="link5_8.obj" name="left_link5_8" />
+    <mesh name="left_base_link" file="base_link.stl" />
+    <mesh name="left_link1" file="link1.stl" />
+    <mesh name="left_link2" file="link2.stl" />
+    <mesh name="left_link2_gray" file="link2_gray.stl" />
+    <mesh name="left_link3" file="link3.stl" />
+    <mesh name="left_link4" file="link4.stl" />
+    <mesh name="left_link5" file="link5.stl" />
+    <mesh file="link6.stl" name="left_link6" />
+
+    <material name="left_black" rgba="0.2 0.2 0.2 1" />
+    <material name="left_gray" rgba="0.5 0.5 0.5 1" />
+    <material name="left_white" rgba="0.7 0.7 0.7 1" />
+
+    <mesh name="left_tetheria_mount" file="left_palm_mount_link.STL" />
+    <mesh name="left_frame_link" content_type="model/stl" file="base_link.STL" />
+    <mesh name="left_index_f_link" content_type="model/stl" file="left_index_f_link.STL" />
+    <mesh name="left_index_proximal_link" content_type="model/stl" file="left_index_proximal_link.STL" />
+    <mesh name="left_index_middle_link" content_type="model/stl" file="left_index_middle_link.STL" />
+    <mesh name="left_index_distal_link" content_type="model/stl" file="left_index_distal_link.STL" />
+    <mesh name="left_index_tip_link" content_type="model/stl" file="left_index_tip_link.STL" />
+    <mesh name="left_middle_f_link" content_type="model/stl" file="left_middle_f_link.STL" />
+    <mesh name="left_middle_proximal_link" content_type="model/stl" file="left_middle_proximal_link.STL" />
+    <mesh name="left_middle_middle_link" content_type="model/stl" file="left_middle_middle_link.STL" />
+    <mesh name="left_middle_distal_link" content_type="model/stl" file="left_middle_distal_link.STL" />
+    <mesh name="left_middle_tip_link" content_type="model/stl" file="left_middle_tip_link.STL" />
+    <mesh name="left_ring_f_link" content_type="model/stl" file="left_ring_f_link.STL" />
+    <mesh name="left_ring_proximal_link" content_type="model/stl" file="left_ring_proximal_link.STL" />
+    <mesh name="left_ring_middle_link" content_type="model/stl" file="left_ring_middle_link.STL" />
+    <mesh name="left_ring_distal_link" content_type="model/stl" file="left_ring_distal_link.STL" />
+    <mesh name="left_ring_tip_link" content_type="model/stl" file="left_ring_tip_link.STL" />
+    <mesh name="left_pinky_f_link" content_type="model/stl" file="left_pinky_f_link.STL" />
+    <mesh name="left_pinky_proximal_link" content_type="model/stl" file="left_pinky_proximal_link.STL" />
+    <mesh name="left_pinky_middle_link" content_type="model/stl" file="left_pinky_middle_link.STL" />
+    <mesh name="left_pinky_distal_link" content_type="model/stl" file="left_pinky_distal_link.STL" />
+    <mesh name="left_pinky_tip_link" content_type="model/stl" file="left_pinky_tip_link.STL" />
+    <mesh name="left_t_link" content_type="model/stl" file="left_t_link.STL" />
+    <mesh name="left_thumb_mcp_link" content_type="model/stl" file="left_thumb_mcp_link.STL" />
+    <mesh name="left_thumb_proximal_link" content_type="model/stl" file="left_thumb_proximal_link.STL" />
+    <mesh name="left_thumb_distal_link" content_type="model/stl" file="left_thumb_distal_link.STL" />
+    <mesh name="left_thumb_tip_link" content_type="model/stl" file="left_thumb_tip_link.STL" />
+  </asset>
+
+  <default>
+    <default class="left_piper">
+      <joint frictionloss="0.3" armature="0.005" />
+      <position inheritrange="1" forcerange="-100 100" />
+      <default class="left_finger">
+        <joint frictionloss="0" type="slide" />
+        <position forcerange="-10 10" />
+      </default>
+      <default class="left_visual">
+        <geom group="2" type="mesh" contype="0" conaffinity="0" density="0" />
+      </default>
+      <default class="left_collision">
+        <geom group="3" type="capsule" />
+      </default>
+    </default>
+
+    <default class="left_tetheria_rh">
+      <geom group="3" friction="0.2" solref="0.02 1.5" solimp="0.9 0.99 0.001" />
+      <default class="left_hand_visual">
+        <geom group="2" type="mesh" contype="0" conaffinity="0" density="0" material="left_white" />
+      </default>
+      <default class="left_tip">
+        <geom size="0.01 0.012 0.016" pos="-0.0012969 -0.0335524 0.0145207" quat="0.703552 0.709596 -0.0292107 -0.0252203" type="box" friction="0.7 0.05 0.0002" rgba=".5 .5 .5 .3" />
+      </default>
+      <default class="left_thumb_tip">
+        <geom size="0.01 0.012 0.016" pos="-0.00127744 -0.0455619 -0.0144774" quat="0.708101 0.705072 -0.0294902 -0.024426" type="box" friction="0.7 0.05 0.0002" rgba=".5 .5 .5 .3" />
+      </default>
+      <joint axis="0 0 -1" damping="0.02" armature="0.001559127" frictionloss="0.02" />
+      <default class="left_rot">
+        <joint range="0 1.5708" damping="0.1" />
+        <position ctrlrange="-0.1 1.58" />
+      </default>
+      <default class="left_pip">
+        <joint range="0 1.5708" damping="0.05" />
+        <position ctrlrange="-0.1 1.58" />
+      </default>
+      <default class="left_dip">
+        <joint range="0 1.5708" damping="0.05" />
+        <position ctrlrange="-0.1 1.58" />
+      </default>
+      <default class="left_thumb_cmc">
+        <joint range="0 1.7453" />
+        <position ctrlrange="-0.1 1.75" />
+      </default>
+      <default class="left_thumb_axl">
+        <joint range="0 1.4" />
+        <position ctrlrange="-0.1 1.5" />
+      </default>
+      <default class="left_thumb_mcp">
+        <joint range="0 1.2217" />
+        <position ctrlrange="-0.1 1.3" />
+      </default>
+      <default class="left_thumb_ipl">
+        <joint range="0 1.2217" />
+        <position ctrlrange="-0.1 1.3" />
+      </default>
+      <default class="left_cmc_spring">
+        <tendon stiffness="1897" springlength="0.013" width="0.001" rgba="0 0.5 0.5 1" group="2" />
+      </default>
+      <default class="left_distal_spring">
+        <tendon stiffness="4000" springlength="0.021336" width="0.001" rgba="0.5 0.5 0 1" group="2" />
+      </default>
+      <default class="left_mcp_spring">
+        <tendon stiffness="352" springlength="0.011376" width="0.001" rgba="0 0.5 0.5 1" group="2" />
+      </default>
+      <default class="left_mcp_tendon">
+        <tendon width="0.001" rgba="1 0 0 1" group="2" />
+      </default>
+      <default class="left_flex_tendon">
+        <tendon width="0.001" rgba="0 0 1 1" group="2" />
+      </default>
+    </default>
+  </default>
+
+  <contact>
+    <exclude body1="left_base_link" body2="left_link1" />
+    <exclude body1="left_palm" body2="left_t_link" />
+    <exclude body1="left_palm" body2="left_index_f_link" />
+    <exclude body1="left_palm" body2="left_middle_f_link" />
+    <exclude body1="left_palm" body2="left_ring_f_link" />
+    <exclude body1="left_palm" body2="left_pinky_f_link" />
+    <exclude body1="left_palm" body2="left_thumb_mcp_link" />
+    <exclude body1="left_palm" body2="left_index_proximal_link" />
+    <exclude body1="left_palm" body2="left_middle_proximal_link" />
+    <exclude body1="left_palm" body2="left_ring_proximal_link" />
+    <exclude body1="left_palm" body2="left_pinky_proximal_link" />
+    <exclude body1="left_palm" body2="left_thumb_proximal_link" />
+    <exclude body1="left_palm" body2="left_index_middle_link" />
+    <exclude body1="left_palm" body2="left_middle_middle_link" />
+    <exclude body1="left_palm" body2="left_ring_middle_link" />
+    <exclude body1="left_palm" body2="left_pinky_middle_link" />
+    <exclude body1="left_tetheria_mount" body2="left_palm" />
+    <exclude body1="left_tetheria_mount" body2="left_t_link" />
+    <exclude body1="left_tetheria_mount" body2="left_index_f_link" />
+    <exclude body1="left_tetheria_mount" body2="left_middle_f_link" />
+    <exclude body1="left_tetheria_mount" body2="left_ring_f_link" />
+    <exclude body1="left_tetheria_mount" body2="left_pinky_f_link" />
+    <exclude body1="left_tetheria_mount" body2="left_thumb_mcp_link" />
+    <exclude body1="left_tetheria_mount" body2="left_index_proximal_link" />
+    <exclude body1="left_tetheria_mount" body2="left_middle_proximal_link" />
+    <exclude body1="left_tetheria_mount" body2="left_ring_proximal_link" />
+    <exclude body1="left_tetheria_mount" body2="left_pinky_proximal_link" />
+    <exclude body1="left_tetheria_mount" body2="left_thumb_proximal_link" />
+    <exclude body1="left_tetheria_mount" body2="left_index_middle_link" />
+    <exclude body1="left_tetheria_mount" body2="left_middle_middle_link" />
+    <exclude body1="left_tetheria_mount" body2="left_ring_middle_link" />
+    <exclude body1="left_tetheria_mount" body2="left_pinky_middle_link" />
+    <exclude body1="left_tetheria_mount" body2="left_thumb_distal_link" />
+    <exclude body1="left_tetheria_mount" body2="left_index_distal_link" />
+    <exclude body1="left_tetheria_mount" body2="left_middle_distal_link" />
+    <exclude body1="left_tetheria_mount" body2="left_ring_distal_link" />
+    <exclude body1="left_tetheria_mount" body2="left_pinky_distal_link" />
+    <exclude body1="left_t_link" body2="left_index_f_link" />
+    <exclude body1="left_t_link" body2="left_middle_f_link" />
+    <exclude body1="left_t_link" body2="left_ring_f_link" />
+    <exclude body1="left_t_link" body2="left_pinky_f_link" />
+    <exclude body1="left_index_f_link" body2="left_middle_f_link" />
+    <exclude body1="left_index_f_link" body2="left_ring_f_link" />
+    <exclude body1="left_index_f_link" body2="left_pinky_f_link" />
+    <exclude body1="left_middle_f_link" body2="left_ring_f_link" />
+    <exclude body1="left_middle_f_link" body2="left_pinky_f_link" />
+    <exclude body1="left_ring_f_link" body2="left_pinky_f_link" />
+  </contact>
+
+  <equality>
+    <joint joint1="left_index_pip" joint2="left_index_dip" />
+    <joint joint1="left_middle_pip" joint2="left_middle_dip" />
+    <joint joint1="left_ring_pip" joint2="left_ring_dip" />
+    <joint joint1="left_pinky_pip" joint2="left_pinky_dip" />
+    <joint joint1="left_thumb_mcp" joint2="left_thumb_ip" />
+  </equality>
+
+  <worldbody>
+    
+    <body name="left_base_link" childclass="left_piper" gravcomp="1" pos="0 0.40 0">
+      <inertial pos="-0.00979275 1.82906e-06 0.04101" quat="0.692988 -0.137524 -0.137826 0.69416" mass="0.162549" diaginertia="0.000269445 0.000227478 0.000221437" />
+      <geom class="left_visual" density="0" mesh="left_base_link" material="left_gray_mat" />
+      <geom class="left_collision" mesh="left_base_link" />
+      <body name="left_link1" pos="0 0 0.123" quat="0.707105 0 0 -0.707108" gravcomp="1">
+        <inertial pos="0.00131676 0.000310289 -0.00922875" quat="0.557105 0.432155 0.377373 0.600388" mass="0.097868" diaginertia="9.25942e-05 8.3083e-05 7.69469e-05" />
+        <joint name="left_joint1" axis="0 0 1" range="-2.618 2.618" />
+        <geom class="left_visual" density="0" mesh="left_link1" material="left_gray_mat" />
+        <geom class="left_collision" mesh="left_link1" />
+        <body name="left_link2" quat="0.499998 0.5 -0.500002 -0.5" gravcomp="1">
+          <inertial pos="0.148794 -0.00242027 0.00175155" quat="-0.0249063 0.70684 0.00803509 0.706889" mass="0.290889" diaginertia="0.00177549 0.00173142 0.00014552" />
+          <joint name="left_joint2" axis="0 0 1" range="0 3.14" />
+          <geom mesh="left_link2_0" material="left_gray_mat" class="left_visual" />
+          <geom mesh="left_link2_1" material="left_darker_gray_mat" class="left_visual" />
+          <geom mesh="left_link2_2" material="left_darker_gray_mat" class="left_visual" />
+          <geom mesh="left_link2_3" material="left_dark_gray_mat" class="left_visual" />
+          <geom mesh="left_link2_4" material="left_dark_gray_mat" class="left_visual" />
+          <geom mesh="left_link2_5" material="left_red_mat" class="left_visual" />
+          <geom mesh="left_link2_6" material="left_dark_gray_mat" class="left_visual" />
+          <geom mesh="left_link2_7" material="left_gray_mat" class="left_visual" />
+          <geom mesh="left_link2_8" material="left_red_mat" class="left_visual" />
+          <geom mesh="left_link2_9" material="left_red_mat" class="left_visual" />
+          <geom mesh="left_link2_10" material="left_gray_mat" class="left_visual" />
+          <geom mesh="left_link2_11" material="left_red_mat" class="left_visual" />
+          <geom mesh="left_link2_12" material="left_red_mat" class="left_visual" />
+          <geom mesh="left_link2_13" material="left_red_mat" class="left_visual" />
+          <geom mesh="left_link2_14" material="left_red_mat" class="left_visual" />
+          <geom mesh="left_link2_15" material="left_red_mat" class="left_visual" />
+          <geom mesh="left_link2_16" material="left_red_mat" class="left_visual" />
+          <geom mesh="left_link2_17" material="left_red_mat" class="left_visual" />
+          <geom mesh="left_link2_18" material="left_red_mat" class="left_visual" />
+          <geom mesh="left_link2_19" material="left_red_mat" class="left_visual" />
+          <geom mesh="left_link2_20" material="left_red_mat" class="left_visual" />
+          <geom mesh="left_link2_21" material="left_gray_mat" class="left_visual" />
+          <geom mesh="left_link2_22" material="left_red_mat" class="left_visual" />
+          <geom mesh="left_link2_23" material="left_red_mat" class="left_visual" />
+          <geom mesh="left_link2_24" material="left_red_mat" class="left_visual" />
+          <geom mesh="left_link2_25" material="left_dark_gray_mat" class="left_visual" />
+          <geom mesh="left_link2_26" material="left_red_mat" class="left_visual" />
+          <geom mesh="left_link2_27" material="left_darker_gray_mat" class="left_visual" />
+          <geom mesh="left_link2_28" material="left_darker_gray_mat" class="left_visual" />
+          <geom mesh="left_link2_29" material="left_darker_gray_mat" class="left_visual" />
+          <geom mesh="left_link2_30" material="left_darker_gray_mat" class="left_visual" />
+          <geom mesh="left_link2_31" material="left_light_medium_gray_mat" class="left_visual" />
+          <geom mesh="left_link2" class="left_collision" />
+          <body name="left_link3" pos="0.28358 0.028726 0" quat="0.998726 0 0 0.0504536" gravcomp="1">
+            <inertial pos="-0.0996835 0.0349477 0.000508026" quat="0.0777021 0.702287 -0.0990541 0.700674" mass="0.290848" diaginertia="0.000241946 0.000222224 0.000100384" />
+            <joint name="left_joint3" pos="0 0 0" axis="0 0 1" range="-2.697 0" />
+            <geom mesh="left_link3_0" material="left_darker_gray_mat" class="left_visual" />
+            <geom mesh="left_link3_1" material="left_red_mat" class="left_visual" />
+            <geom mesh="left_link3_2" material="left_gray_mat" class="left_visual" />
+            <geom mesh="left_link3_3" material="left_gray_mat" class="left_visual" />
+            <geom mesh="left_link3_4" material="left_gray_mat" class="left_visual" />
+            <geom mesh="left_link3_5" material="left_gray_mat" class="left_visual" />
+            <geom mesh="left_link3_7" material="left_darker_gray_mat" class="left_visual" />
+            <geom mesh="left_link3_8" material="left_white_mat" class="left_visual" />
+            <geom mesh="left_link3_9" material="left_red_mat" class="left_visual" />
+            <geom mesh="left_link3_10" material="left_white_mat" class="left_visual" />
+            <geom mesh="left_link3_11" material="left_white_mat" class="left_visual" />
+            <geom mesh="left_link3_12" material="left_white_mat" class="left_visual" />
+            <geom mesh="left_link3_13" material="left_white_mat" class="left_visual" />
+            <geom mesh="left_link3_14" material="left_gray_mat" class="left_visual" />
+            <geom mesh="left_link3_15" material="left_gray_mat" class="left_visual" />
+            <geom mesh="left_link3_16" material="left_gray_mat" class="left_visual" />
+            <geom mesh="left_link3_17" material="left_gray_mat" class="left_visual" />
+            <geom mesh="left_link3_18" material="left_gray_mat" class="left_visual" />
+            <geom mesh="left_link3_19" material="left_gray_mat" class="left_visual" />
+            <geom mesh="left_link3_20" material="left_gray_mat" class="left_visual" />
+            <geom mesh="left_link3_21" material="left_gray_mat" class="left_visual" />
+            <geom mesh="left_link3_22" material="left_gray_mat" class="left_visual" />
+            <geom mesh="left_link3_23" material="left_gray_mat" class="left_visual" />
+            <geom mesh="left_link3_24" material="left_gray_mat" class="left_visual" />
+            <geom mesh="left_link3_25" material="left_gray_mat" class="left_visual" />
+            <geom mesh="left_link3_26" material="left_gray_mat" class="left_visual" />
+            <geom mesh="left_link3_27" material="left_gray_mat" class="left_visual" />
+            <geom mesh="left_link3_28" material="left_gray_mat" class="left_visual" />
+            <geom mesh="left_link3" class="left_collision" />
+            <body name="left_link4" pos="-0.24221 0.068514 0" quat="0.544767 -0.544769 -0.450809 0.450808" gravcomp="1">
+              <inertial pos="0.000276465 -0.00102804 -0.00472831" quat="0.492305 0.505285 0.503294 0.499017" mass="0.127087" diaginertia="4.87057e-05 4.10595e-05 3.82001e-05" />
+              <joint name="left_joint4" axis="0 0 1" range="-1.832 1.832" />
+              <geom mesh="left_link4_2" material="left_gray_mat" class="left_visual" />
+              <geom mesh="left_link4_3" material="left_darker_gray_mat" class="left_visual" />
+              <geom mesh="left_link4_4" material="left_gray_mat" class="left_visual" />
+              <geom mesh="left_link4_5" material="left_gray_mat" class="left_visual" />
+              <geom mesh="left_link4_6" material="left_gray_mat" class="left_visual" />
+              <geom mesh="left_link4" class="left_collision" />
+              <body name="left_link5" quat="0.707105 0.707108 0 0" gravcomp="1">
+                <inertial pos="8.82262e-05 0.0566829 -0.0019612" quat="0.507447 0.490986 0.506887 0.494466" mass="0.144711" diaginertia="0.001 0.001 0.001" />
+                <joint name="left_joint5" axis="0 0 1" range="-1.22 1.22" />
+                <geom mesh="left_link5_2" material="left_black_mat" class="left_visual" />
+                <geom mesh="left_link5_3" material="left_black_mat" class="left_visual" />
+                <geom mesh="left_link5_4" material="left_darker_gray_mat" class="left_visual" />
+                <geom mesh="left_link5_5" material="left_gray_mat" class="left_visual" />
+                <geom mesh="left_link5_6" material="left_light_gray_mat" class="left_visual" />
+                <geom mesh="left_link5_7" material="left_gray_mat" class="left_visual" />
+                <geom mesh="left_link5_8" material="left_gray_mat" class="left_visual" />
+                <geom mesh="left_link5" class="left_collision" />
+                <body name="left_link6" pos="0 0.091 0.0014165" quat="0 0 -0.707105 -0.707108" gravcomp="1">
+                  <inertial pos="0.0010312 0.0121761 0.0315481" quat="0.0230402 0.707091 0.0373344 0.70576" mass="1.2" diaginertia="0.001 0.001 0.001" />
+                  <joint name="left_joint6" axis="0 0 1" range="-3.14 3.14" />
+                  
+                  
+                  
+                  
+                  <body name="left_tetheria_mount" pos="0 0 0.03" quat="-0.5 0.5 0.5 0.5" childclass="left_tetheria_rh">
+                    <geom name="left_tetheria_mount_visual" pos="0.04 -0.01 -0.012" quat="0.4104745136 0.575769636 0.575769636 0.4104745136" class="left_hand_visual" mesh="left_tetheria_mount" />
+                    <geom name="left_tetheria_mount_collision_0" size="0.002 0.025 0.005" pos="0.0405 -0.02 0.009" quat="0.5734623417 0 0.8192319224 0" type="box" />
+                    <geom name="left_tetheria_mount_collision_1" size="0.005 0.010 0.005" pos="0.045 -0.053 0.002" quat="-0.4987168014 0.6499403818 0.349101751 0.4549582613" type="box" />
+                    <site name="left_grasp_site" pos="0.11 0 0.03" group="4" />
+                    <body name="left_palm" pos="0.04 -0.01 -0.015" quat="0.4056064898 -0.5792092674 0.5792092674 -0.4056064898">
+           
+            <geom type="mesh" class="left_hand_visual" mesh="left_frame_link" />
+            <geom name="left_palm_collision_1" size="0.006 0.006 0.006" pos="0.031 0.0045 0.096" quat="0.5 -0.5 0.5 0.5" type="box" />
+            <site name="left_palm_collision_1" pos="0.031 0.017 0.076" group="3" size="0.0001" />
+            <geom name="left_palm_collision_2" size="0.006 0.006 0.006" pos="0.009 0.0045 0.096" quat="0.5 -0.5 0.5 0.5" type="box" />
+            <site name="left_palm_collision_2" pos="0.009 0.017 0.076" group="3" size="0.0001" />
+            <geom name="left_palm_collision_3" size="0.006 0.006 0.006" pos="-0.014 0.0045 0.096" quat="0.5 -0.5 0.5 0.5" type="box" />
+            <site name="left_palm_collision_3" pos="-0.014 0.017 0.076" group="3" size="0.0001" />
+            <geom name="left_palm_collision_4" size="0.006 0.006 0.006" pos="-0.036 0.0045 0.081" quat="0.5 -0.5 0.5 0.5" type="box" />
+            <site name="left_palm_collision_4" pos="-0.036 0.017 0.061" group="3" size="0.0001" />
+            <geom name="left_palm_collision_5" size="0.029 0.01 0.023" pos="-0.028 0.0015 0.034" quat="0.4206051552 0.4206051552 -0.5684112098 0.5684112098" type="box" group="3" />
+            <geom name="left_palm_collision_6" size="0.016 0.044 0.015" pos="0 -0.007 0.07" quat="0.5 -0.5 0.5 0.5" type="box" group="3" />
+            <geom name="left_palm_collision_7" size="0.0071 0.042 0.013" pos="0.002 0.014 0.0745" quat="0.7010258803 0.09253493981 -0.09253493981 0.7010258803" type="box" group="3" />
+            <geom name="left_palm_collision_8" size="0.012 0.042 0.023" pos="0.002 0.0015 0.052" quat="0.5 -0.5 0.5 0.5" type="box" group="3" />
+            <geom name="left_palm_collision_9" size="0.022 0.020 0.023" pos="-0.003 0.0015 0.022" quat="0.5 -0.5 0.5 0.5" type="box" group="3" />
+            <geom name="left_palm_collision_10" size="0.002 0.018 0.017" pos="0.041 -0.004 0.002" quat="0.5 -0.5 0.5 0.5" type="box" group="3" />
+            <geom name="left_palm_collision_11" size="0.022 0.028 0.002" pos="0.047 -0.02 0.022" quat="0.5 -0.5 0.5 0.5" type="box" group="3" />
+            <body name="left_index_f_link" pos="0.031448 0.004172 0.10003" quat="0.9995050682 -0.0004568570312 0.02617300179 0.01744660119">
+              <inertial pos="0 0 0.0017" mass="0.000169697" diaginertia="1.29009e-09 1.29009e-09 7.6801e-10" />
+              <geom type="mesh" mesh="left_index_f_link" class="left_hand_visual" />
+              <site name="left_if_f_spring1_s1" pos="0 -0.005 0" group="4" size="0.0005" />
+              <geom name="left_if_f_spring1_g0" rgba="0 1 0 1" size="0.003 0.005" pos="0 0 0.0029" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+              <body name="left_index_proximal_link" pos="0 0 0.0034">
+                <inertial pos="-6.14568e-08 0.00357858 0.0205176" quat="0.7068582183 -0.01793740554 -0.01793850554 -0.7069002183" mass="0.00600337" diaginertia="8.89988e-07 8.65278e-07 2.05352e-07" />
+                <joint name="left_index_mcp_flex" pos="0 0 0" axis="-1 -0 -0" range="0 1.5708" class="left_rot" />
+                <geom type="mesh" mesh="left_index_proximal_link" class="left_hand_visual" />
+                <geom size="0.006 0.006 0.013" pos="0 0.003 0.019" type="box" />
+                <site name="left_if_proximal_tendon0_s0" pos="0 0.011 0.0095" group="4" size="0.0001" />
+                <geom name="left_if_proximal_tendon0_g0" rgba="0 1 0 1" size="0.0025 0.005" pos="0 0.0075 0.0095" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                <site name="left_if_proximal_tendon0_s1" pos="0 0.0063 0.0135" group="4" size="0.0001" />
+                <geom name="left_if_proximal_tendon2" rgba="0 1 0 1" size="0.0025 0.005" pos="0 0.0057 0.0173" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                <site name="left_if_proximal_tendon0_s2" pos="0 0.0022 0.0173" group="4" size="0.0001" />
+                <geom name="left_if_proximal_tendon3" rgba="0 1 0 1" size="0.0025 0.005" pos="0 0.0057 0.0323" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                <site name="left_if_proximal_tendon0_s3" pos="0 0.0025 0.03" group="4" size="0.0001" />
+                <site name="left_if_proximal_tendon0_s4" pos="0 0.0025 0.0333" group="4" size="0.0001" />
+                <geom name="left_if_proximal_tendon1_g0" rgba="0 1 0 1" size="0.003 0.005" pos="0 0.0018 0.043" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                <site name="left_if_proximal_tendon1_s0" pos="0 0.0048 0.04" group="4" size="0.0001" />
+                <site name="left_if_proximal_tendon1_s1" pos="0 -0.0012 0.035" group="4" size="0.0001" />
+                <site name="left_if_proximal_spring0_s0" pos="0 -0.0012 0.011" group="4" size="0.0005" />
+                <site name="left_if_proximal_spring0_s1" pos="0 -0.0012 0.04" group="4" size="0.0005" />
+                <site name="left_if_proximal_spring1_s0" pos="0 -0.003 0.004" group="4" size="0.0005" />
+                <body name="left_index_middle_link" pos="0 0.0014554 0.043" quat="0.9999619243 -0.00872638934 0 0">
+                  <inertial pos="2.38785e-08 0.00110516 0.00939619" quat="0.7068326469 0.01919079041 0.01920319041 -0.7068596469" mass="0.0023759" diaginertia="1.62521e-07 1.35575e-07 7.42871e-08" />
+                  <joint name="left_index_pip" pos="0 0 0" axis="-1 -0 -0" range="0 1.5708" class="left_pip" />
+                  <geom type="mesh" mesh="left_index_middle_link" class="left_hand_visual" />
+                  <geom size="0.006 0.005 0.010" pos="0 0.001 0.006" type="box" />
+                  <site name="left_if_middle_spring0_s0" pos="0 -0.004 0.003" group="4" size="0.0005" />
+                  <body name="left_index_distal_link" pos="0 -0.00036966 0.021997" quat="0.9999998599 -0.0005293499258 0 0">
+                    <inertial pos="-0.00184412 -0.000358323 0.0107277" quat="0.6962529814 0.1844279951 0.05006349867 -0.6918899816" mass="0.00309312" diaginertia="1.89064e-07 1.75544e-07 6.39413e-08" />
+                    <joint name="left_index_dip" pos="0 0 0" axis="-1 -0 -0" range="0 1.5708" class="left_dip" />
+                    <geom type="mesh" mesh="left_index_distal_link" class="left_hand_visual" />
+                    <geom pos="0 -0.0033789 0.024944" quat="0.9999987472 0.0015828996 0 0" type="mesh" mesh="left_index_tip_link" class="left_hand_visual" />
+                    <geom name="left_if_tip" size="0.005 0.005 0.01" pos="0 0.003 0.014" type="box" />
+                    <site name="left_if_tip" pos="0 0.003 0.023" group="4" />
+                    <site name="left_if_dip_tendon0_s0" pos="0 0.0086 0.003" group="4" size="0.0001" />
+                    <geom name="left_if_dip_tendon0_g0" rgba="0 1 0 1" size="0.0025 0.005" pos="0 0.006 0.002" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                    <site name="left_if_dip_tendon0_s2" pos="0 0.0015 0.0075" group="4" size="0.0001" />
+                    <site name="left_if_dip_tendon1_s0" pos="0 -0.0025 0.015" group="4" size="0.0001" />
+                    <geom name="left_if_dip_tendon1_g0" rgba="0 1 0 1" size="0.0025 0.005" pos="0 0 0" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                    <site name="left_if_dip_tendon1_s1" pos="0 -0.0025 -0.002" group="4" size="0.0001" />
+                  </body>
+                </body>
+              </body>
+            </body>
+            <body name="left_middle_f_link" pos="0.0085 0.003 0.10061">
+              <inertial pos="0 0 0.0017" mass="0.000169697" diaginertia="1.29009e-09 1.29009e-09 7.6801e-10" />
+              <geom type="mesh" mesh="left_middle_f_link" class="left_hand_visual" />
+              <site name="left_mf_f_spring1_s1" pos="0 -0.005 0" group="4" size="0.0005" />
+              <geom name="left_mf_f_spring1_g0" rgba="0 1 0 1" size="0.003 0.005" pos="0 0 0.0029" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+              <body name="left_middle_proximal_link" pos="0 0 0.0034">
+                  <inertial pos="-6.14568e-08 0.00357858 0.0205176" quat="0.7068582183 -0.01793740554 -0.01793850554 -0.7069002183" mass="0.00600337" diaginertia="8.89988e-07 8.65278e-07 2.05352e-07" />
+                  <joint name="left_middle_mcp_flex" pos="0 0 0" axis="-1 -0 -0" range="0 1.5708" class="left_rot" />
+                  <geom type="mesh" mesh="left_middle_proximal_link" class="left_hand_visual" />
+                  <geom size="0.006 0.006 0.013" pos="0 0.003 0.019" type="box" />
+                  <site name="left_mf_proximal_tendon0_s0" pos="0 0.011 0.0095" group="4" size="0.0001" />
+                  <geom name="left_mf_proximal_tendon0_g0" rgba="0 1 0 1" size="0.0025 0.005" pos="0 0.0075 0.0095" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                  <site name="left_mf_proximal_tendon0_s1" pos="0 0.0063 0.0135" group="4" size="0.0001" />
+                  <geom name="left_mf_proximal_tendon2" rgba="0 1 0 1" size="0.0025 0.005" pos="0 0.0057 0.0173" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                  <site name="left_mf_proximal_tendon0_s2" pos="0 0.0022 0.0173" group="4" size="0.0001" />
+                  <geom name="left_mf_proximal_tendon3" rgba="0 1 0 1" size="0.0025 0.005" pos="0 0.0057 0.0323" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                  <site name="left_mf_proximal_tendon0_s3" pos="0 0.0025 0.03" group="4" size="0.0001" />
+                  <site name="left_mf_proximal_tendon0_s4" pos="0 0.0025 0.0333" group="4" size="0.0001" />
+                  <geom name="left_mf_proximal_tendon1_g0" rgba="0 1 0 1" size="0.003 0.005" pos="0 0.0018 0.043" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                  <site name="left_mf_proximal_tendon1_s0" pos="0 0.0048 0.04" group="4" size="0.0001" />
+                  <site name="left_mf_proximal_tendon1_s1" pos="0 -0.0012 0.035" group="4" size="0.0001" />
+                  <site name="left_mf_proximal_spring0_s0" pos="0 -0.0012 0.011" group="4" size="0.0005" />
+                  <site name="left_mf_proximal_spring0_s1" pos="0 -0.0012 0.04" group="4" size="0.0005" />
+                  <site name="left_mf_proximal_spring1_s0" pos="0 -0.003 0.004" group="4" size="0.0005" />
+                  <body name="left_middle_middle_link" pos="0 0.0014554 0.043" quat="0.9999619243 -0.00872638934 0 0">
+                    <inertial pos="2.38785e-08 0.00110516 0.00939619" quat="0.7068326469 0.01919079041 0.01920319041 -0.7068596469" mass="0.0023759" diaginertia="1.62521e-07 1.35575e-07 7.42871e-08" />
+                    <joint name="left_middle_pip" pos="0 0 0" axis="-1 -0 -0" range="0 1.5708" class="left_pip" />
+                    <geom type="mesh" mesh="left_middle_middle_link" class="left_hand_visual" />
+                    <geom size="0.006 0.005 0.010" pos="0 0.001 0.006" type="box" />
+                    <site name="left_mf_middle_spring0_s0" pos="0 -0.004 0.003" group="4" size="0.0005" />
+                    <body name="left_middle_distal_link" pos="0 -0.00036966 0.021997" quat="0.9999998599 -0.0005293499258 0 0">
+                      <inertial pos="-0.00184412 -0.000358323 0.0107277" quat="0.6962529814 0.1844279951 0.05006349867 -0.6918899816" mass="0.00309312" diaginertia="1.89064e-07 1.75544e-07 6.39413e-08" />
+                      <joint name="left_middle_dip" pos="0 0 0" axis="-1 -0 -0" range="0 1.5708" class="left_dip" />
+                      <geom type="mesh" mesh="left_middle_distal_link" class="left_hand_visual" />
+                      <geom pos="0 -0.0033789 0.024944" quat="0.9999987472 0.0015828996 0 0" type="mesh" mesh="left_middle_tip_link" class="left_hand_visual" />
+                      <geom name="left_mf_tip" size="0.005 0.005 0.01" pos="0 0.003 0.014" type="box" />
+                      <site name="left_mf_tip" pos="0 0.003 0.023" group="4" />
+                      <site name="left_mf_dip_tendon0_s0" pos="0 0.0086 0.003" group="4" size="0.0001" />
+                      <geom name="left_mf_dip_tendon0_g0" rgba="0 1 0 1" size="0.0025 0.005" pos="0 0.006 0.002" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                      <site name="left_mf_dip_tendon0_s2" pos="0 0.0015 0.0075" group="4" size="0.0001" />
+                      <site name="left_mf_dip_tendon1_s0" pos="0 -0.0025 0.015" group="4" size="0.0001" />
+                      <geom name="left_mf_dip_tendon1_g0" rgba="0 1 0 1" size="0.0025 0.005" pos="0 0 0" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                      <site name="left_mf_dip_tendon1_s1" pos="0 -0.0025 -0.002" group="4" size="0.0001" />
+                    </body>
+                  </body>
+                </body>
+            </body>
+            <body name="left_ring_f_link" pos="-0.014448 0.004172 0.10003" quat="0.9995050682 -0.0004568570312 -0.02617300179 -0.01744660119">
+              <inertial pos="0 0 0.0017" mass="0.000169697" diaginertia="1.29009e-09 1.29009e-09 7.6801e-10" />
+              <geom type="mesh" mesh="left_ring_f_link" class="left_hand_visual" />
+              <site name="left_rf_f_spring1_s1" pos="0 -0.005 0" group="4" size="0.0005" />
+              <geom name="left_rf_f_spring1_g0" rgba="0 1 0 1" size="0.003 0.005" pos="0 0 0.0029" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+              <body name="left_ring_proximal_link" pos="0 0 0.0034">
+                    <inertial pos="-4.27735e-08 0.00357857 0.0205176" quat="0.7068792098 -0.01793830532 -0.01793830532 -0.7068792098" mass="0.00600337" diaginertia="8.89987e-07 8.65277e-07 2.05351e-07" />
+                    <joint name="left_ring_mcp_flex" pos="0 0 0" axis="-1 -0 -0" range="0 1.5708" class="left_rot" />
+                    <geom type="mesh" mesh="left_ring_proximal_link" class="left_hand_visual" />
+                    <geom size="0.006 0.006 0.013" pos="0 0.003 0.019" type="box" />
+                    <site name="left_rf_proximal_tendon0_s0" pos="0 0.011 0.0095" group="4" size="0.0001" />
+                    <geom name="left_rf_proximal_tendon0_g0" rgba="0 1 0 1" size="0.0025 0.005" pos="0 0.0075 0.0095" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                    <site name="left_rf_proximal_tendon0_s1" pos="0 0.0063 0.0135" group="4" size="0.0001" />
+                    <geom name="left_rf_proximal_tendon2" rgba="0 1 0 1" size="0.0025 0.005" pos="0 0.0057 0.0173" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                    <site name="left_rf_proximal_tendon0_s2" pos="0 0.0022 0.0173" group="4" size="0.0001" />
+                    <geom name="left_rf_proximal_tendon3" rgba="0 1 0 1" size="0.0025 0.005" pos="0 0.0057 0.0323" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                    <site name="left_rf_proximal_tendon0_s3" pos="0 0.0025 0.03" group="4" size="0.0001" />
+                    <site name="left_rf_proximal_tendon0_s4" pos="0 0.0025 0.0333" group="4" size="0.0001" />
+                    <geom name="left_rf_proximal_tendon1_g0" rgba="0 1 0 1" size="0.003 0.005" pos="0 0.0018 0.043" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                    <site name="left_rf_proximal_tendon1_s0" pos="0 0.0048 0.04" group="4" size="0.0001" />
+                    <site name="left_rf_proximal_tendon1_s1" pos="0 -0.0012 0.035" group="4" size="0.0001" />
+                    <site name="left_rf_proximal_spring0_s0" pos="0 -0.0012 0.011" group="4" size="0.0005" />
+                    <site name="left_rf_proximal_spring0_s1" pos="0 -0.0012 0.04" group="4" size="0.0005" />
+                    <site name="left_rf_proximal_spring1_s0" pos="0 -0.003 0.004" group="4" size="0.0005" />
+                    <body name="left_ring_middle_link" pos="0 0.0014554 0.043" quat="0.9999619243 -0.00872638934 0 0">
+                      <inertial pos="5.2917e-09 0.00110519 0.0093962" quat="0.7068461833 0.01918930498 0.01920200498 -0.7068461833" mass="0.00237591" diaginertia="1.62521e-07 1.35575e-07 7.42877e-08" />
+                      <joint name="left_ring_pip" pos="0 0 0" axis="-1 -0 -0" range="0 1.5708" class="left_pip" />
+                      <geom type="mesh" mesh="left_ring_middle_link" class="left_hand_visual" />
+                      <geom size="0.006 0.005 0.010" pos="0 0.001 0.006" type="box" />
+                      <site name="left_rf_middle_spring0_s0" pos="0 -0.004 0.003" group="4" size="0.0005" />
+                      <body name="left_ring_distal_link" pos="0 -0.00036966 0.021997" quat="0.9999998599 -0.0005293499258 0 0">
+                        <inertial pos="-0.00184407 -0.000358289 0.0107282" quat="0.6962437983 0.1844219466 0.05006398549 -0.6919007995" mass="0.00309314" diaginertia="1.89076e-07 1.75558e-07 6.39409e-08" />
+                        <joint name="left_ring_dip" pos="0 0 0" axis="-1 -0 -0" range="0 1.5708" class="left_dip" />
+                        <geom type="mesh" mesh="left_ring_distal_link" class="left_hand_visual" />
+                        <geom pos="0 -0.0033789 0.024944" quat="0.9999987472 0.0015828996 0 0" type="mesh" mesh="left_ring_tip_link" class="left_hand_visual" />
+                        <geom name="left_rf_tip" size="0.005 0.005 0.01" pos="0 0.003 0.014" type="box" />
+                        <site name="left_rf_tip" pos="0 0.003 0.023" group="4" />
+                        <site name="left_rf_dip_tendon0_s0" pos="0 0.0086 0.003" group="4" size="0.0001" />
+                        <geom name="left_rf_dip_tendon0_g0" rgba="0 1 0 1" size="0.0025 0.005" pos="0 0.006 0.002" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                        <site name="left_rf_dip_tendon0_s2" pos="0 0.0015 0.0075" group="4" size="0.0001" />
+                        <site name="left_rf_dip_tendon1_s0" pos="0 -0.0025 0.015" group="4" size="0.0001" />
+                        <geom name="left_rf_dip_tendon1_g0" rgba="0 1 0 1" size="0.0025 0.005" pos="0 0 0" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                        <site name="left_rf_dip_tendon1_s1" pos="0 -0.0025 -0.002" group="4" size="0.0001" />
+                      </body>
+                    </body>
+                  </body>
+            </body>
+            <body name="left_pinky_f_link" pos="-0.036912 0.0066167 0.087021" quat="0.9980188709 -0.001829979763 -0.05230409323 -0.03491799548">
+              <inertial pos="0 0 0.0017" mass="0.000169697" diaginertia="1.29009e-09 1.29009e-09 7.6801e-10" />
+              <geom type="mesh" mesh="left_pinky_f_link" class="left_hand_visual" />
+              <site name="left_pf_f_spring1_s1" pos="0 -0.005 0" group="4" size="0.0005" />
+              <geom name="left_pf_f_spring1_g0" rgba="0 1 0 1" size="0.003 0.005" pos="0 0 0.0029" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+              <body name="left_pinky_proximal_link" pos="0 0 0.0034">
+                <inertial pos="-4.24866e-08 0.00357857 0.0205176" quat="0.7068792098 -0.01793830532 -0.01793830532 -0.7068792098" mass="0.00600337" diaginertia="8.89987e-07 8.65277e-07 2.05351e-07" />
+                <joint name="left_pinky_mcp_flex" pos="0 0 0" axis="-1 -0 -0" range="0 1.5708" class="left_rot" />
+                <geom type="mesh" mesh="left_pinky_proximal_link" class="left_hand_visual" />
+                <geom size="0.006 0.006 0.013" pos="0 0.003 0.019" type="box" />
+                <site name="left_pf_proximal_tendon0_s0" pos="0 0.011 0.0095" group="4" size="0.0001" />
+                <geom name="left_pf_proximal_tendon0_g0" rgba="0 1 0 1" size="0.0025 0.005" pos="0 0.0075 0.0095" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                <site name="left_pf_proximal_tendon0_s1" pos="0 0.0063 0.0135" group="4" size="0.0001" />
+                <geom name="left_pf_proximal_tendon2" rgba="0 1 0 1" size="0.0025 0.005" pos="0 0.0057 0.0173" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                <site name="left_pf_proximal_tendon0_s2" pos="0 0.0022 0.0173" group="4" size="0.0001" />
+                <geom name="left_pf_proximal_tendon3" rgba="0 1 0 1" size="0.0025 0.005" pos="0 0.0057 0.0323" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                <site name="left_pf_proximal_tendon0_s3" pos="0 0.0025 0.0333" group="4" size="0.0001" />
+                <site name="left_pf_proximal_tendon0_s4" pos="0 0.0025 0.0333" group="4" size="0.0001" />
+                <geom name="left_pf_proximal_tendon1_g0" rgba="0 1 0 1" size="0.003 0.005" pos="0 0.0018 0.043" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                <site name="left_pf_proximal_tendon1_s0" pos="0 0.0048 0.04" group="4" size="0.0001" />
+                <site name="left_pf_proximal_tendon1_s1" pos="0 -0.0012 0.035" group="4" size="0.0001" />
+                <site name="left_pf_proximal_spring0_s0" pos="0 -0.0012 0.011" group="4" size="0.0005" />
+                <site name="left_pf_proximal_spring0_s1" pos="0 -0.0012 0.04" group="4" size="0.0005" />
+                <site name="left_pf_proximal_spring1_s0" pos="0 -0.003 0.004" group="4" size="0.0005" />
+                <body name="left_pinky_middle_link" pos="0 0.0014554 0.043" quat="0.9999619243 -0.00872638934 0 0">
+                      <inertial pos="1.1729e-08 0.00110519 0.0093962" quat="0.7068461765 0.01918980479 0.01920200479 -0.7068461765" mass="0.00237591" diaginertia="1.6252e-07 1.35575e-07 7.42876e-08" />
+                      <joint name="left_pinky_pip" pos="0 0 0" axis="-1 -0 -0" range="0 1.5708" class="left_pip" />
+                      <geom type="mesh" mesh="left_pinky_middle_link" class="left_hand_visual" />
+                      <geom size="0.006 0.005 0.010" pos="0 0.001 0.006" type="box" />
+                      <site name="left_pf_middle_spring0_s0" pos="0 -0.004 0.003" group="4" size="0.0005" />
+                      <body name="left_pinky_distal_link" pos="0 -0.00036966 0.021997" quat="0.9999998599 -0.0005293499258 0 0">
+                        <inertial pos="-0.00184407 -0.000358264 0.0107282" quat="0.6962419571 0.1844209886 0.05006329692 -0.6919029574" mass="0.00309314" diaginertia="1.89076e-07 1.75557e-07 6.3941e-08" />
+                        <joint name="left_pinky_dip" pos="0 0 0" axis="-1 -0 -0" range="0 1.5708" class="left_dip" />
+                        <geom type="mesh" mesh="left_pinky_distal_link" class="left_hand_visual" />
+                        <geom pos="0 -0.0033789 0.024944" quat="0.9999987472 0.0015828996 0 0" type="mesh" mesh="left_pinky_tip_link" class="left_hand_visual" />
+                        <geom name="left_pf_tip" size="0.005 0.005 0.01" pos="0 0.003 0.014" type="box" />
+                        <site name="left_pf_tip" pos="0 0.003 0.023" group="4" />
+                        <site name="left_pf_dip_tendon0_s0" pos="0 0.0086 0.003" group="4" size="0.002" />
+                        <geom name="left_pf_dip_tendon0_g0" rgba="0 1 0 1" size="0.0025 0.005" pos="0 0.006 0.002" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                        <site name="left_pf_dip_tendon0_s2" pos="0 0.0015 0.0075" group="4" size="0.0001" />
+                        <site name="left_pf_dip_tendon1_s0" pos="0 -0.0025 0.015" group="4" size="0.0001" />
+                        <geom name="left_pf_dip_tendon1_g0" rgba="0 1 0 1" size="0.0025 0.005" pos="0 0 0" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                        <site name="left_pf_dip_tendon1_s1" pos="0 -0.0025 -0.002" group="4" size="0.0001" />
+                      </body>
+                    </body>
+                  </body>
+            </body>
+            <body name="left_t_link" pos="0.026317 0.0175 0.02956" quat="0.5792330795 0.4055700556 0.4055720556 0.5792350795">
+              <inertial pos="-0.000792597 -0.00920489 0.00837042" quat="0.9687848109 0.2319689547 -0.05649218897 -0.06674598697" mass="0.00893482" diaginertia="1.11708e-06 8.42419e-07 4.36164e-07" />
+              <joint name="left_thumb_cmc_abd" pos="0 0 0" axis="-0 1 -0" range="0 1.7453" class="left_thumb_cmc" />
+              <geom type="mesh" mesh="left_t_link" class="left_hand_visual" />
+              <geom name="left_th_mp_collision" size="0.015 0.008 0.008" pos="-0.01 -0.015 0.005" type="box" />
+              <site name="left_th_t_tendon0_s0" pos="0 -0.0018 -0.003" group="4" size="0.0001" />
+              <geom name="left_th_t_tendon0_g0" rgba="0 1 0 1" size="0.0025 0.0012" pos="0 -0.0018 0" quat="0.7071067812 0.7071067812 0 0" type="cylinder" class="left_hand_visual" group="2" />
+              <site name="left_th_t_tendon0_s1" pos="0.00185 -0.0018 0.00275" group="4" size="0.0001" />
+              <geom name="left_th_t_tendon0_g1" rgba="0 1 0 1" size="0.0025 0.0012" pos="0.0037 -0.0018 0.0055" quat="0.7071067812 0.7071067812 0 0" type="cylinder" class="left_hand_visual" group="2" />
+              <site name="left_th_t_tendon0_s2" pos="0.00185 -0.0018 0.0083" group="4" size="0.0001" />
+              <geom name="left_th_t_tendon0_g2" rgba="0 1 0 1" size="0.0017 0.0015" pos="0.001 -0.0004 0.0108" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+              <site name="left_th_t_tendon0_s3" pos="0.00185 -0.0018 0.0125" group="4" size="0.0001" />
+              <site name="left_th_t_tendon1_s0" pos="0 -0.0145 -0.003" group="4" size="0.0001" />
+              <geom name="left_th_t_tendon1_g0" rgba="0 1 0 1" size="0.0025 0.0012" pos="0 -0.0145 0" quat="0.7071067812 0.7071067812 0 0" type="cylinder" class="left_hand_visual" group="2" />
+              <site name="left_th_t_tendon1_s1" pos="0.00085 -0.0145 0.00345" group="4" size="0.0001" />
+              <geom name="left_th_t_tendon1_g1" rgba="0 1 0 1" size="0.0025 0.0012" pos="0.0017 -0.0145 0.0069" quat="0.7071067812 0.7071067812 0 0" type="cylinder" class="left_hand_visual" group="2" />
+              <site name="left_th_t_tendon1_s2" pos="0.00035 -0.0145 0.011" group="4" size="0.0001" />
+              <geom name="left_th_t_tendon1_g2" rgba="0 1 0 1" size="0.0025 0.0025" pos="0.0017 -0.0135 0.0203" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+              <site name="left_th_t_tendon1_s3" pos="0.0017 -0.0165 0.0203" group="4" size="0.001" />
+              <site name="left_th_t_spring0_s0" pos="-0.0038 -0.021 0.0125" group="4" size="0.001" />
+              <body name="left_thumb_mcp_link" pos="-0.0024625 -0.011988 0.019805" quat="0.9881192065 -0.05276391103 -0.05828901218 -0.1320560276">
+                <inertial pos="-3.98621e-09 0.0014303 0.0147562" quat="0.7068136634 -0.02052559022 -0.02053599022 -0.7068036634" mass="0.0102694" diaginertia="1.58158e-06 1.39018e-06 6.7267e-07" />
+                <joint name="left_thumb_cmc_flex" pos="0 0 0" axis="-1 -0 -0" range="0 0.9559" class="left_thumb_axl" />
+                <geom type="mesh" mesh="left_thumb_mcp_link" class="left_hand_visual" />
+                <geom name="left_th_bs_collision_1" size="0.008 0.01 0.016" pos="0 0 0.014" type="box" />
+                <site name="left_th_mcp_tendon0_s0" pos="0 0.012 0.015" group="4" size="0.0001" />
+                <geom name="left_th_mcp_tendon1_g0" rgba="0 1 0 1" size="0.0025 0.0025" pos="0 0.005 0.024" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                <site name="left_th_mcp_tendon1_s0" pos="0 0.002 0.028" group="4" size="0.002" />
+                <site name="left_th_mcp_spring0_s0" pos="0 -0.011 0.0045" group="4" size="0.001" />
+                <site name="left_th_mcp_spring1_s0" pos="0 -0.004 0.009" group="4" size="0.001" />
+                <body name="left_thumb_proximal_link" pos="0 -0.0013652 0.035982">
+                  <inertial pos="-9.60413e-08 0.00147723 0.0133935" quat="0.7070280932 0.01077300142 0.01078850142 -0.7070210932" mass="0.00574573" diaginertia="6.77924e-07 5.00351e-07 3.51862e-07" />
+                  <joint name="left_thumb_mcp" pos="0 0 0" axis="-1 -0 -0" range="0 1.5708" class="left_thumb_mcp" />
+                  <geom type="mesh" mesh="left_thumb_proximal_link" class="left_hand_visual" />
+                  <geom name="left_th_px_collision_1" size="0.008 0.006 0.012" pos="0 0.002 0.012" type="box" />
+                  <site name="left_th_proximal_spring1_s0" pos="0 -0.005 -0.0015" group="4" size="0.0005" />
+                  <geom name="left_th_proximal_spring1_g0" rgba="0 1 0 1" size="0.0045 0.005" pos="0 0 0" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                  <site name="left_th_proximal_spring1_s1" pos="0 -0.005 0.006" group="4" size="0.0005" />
+                  <body name="left_thumb_distal_link" pos="0 -0.00052357 0.029995">
+                    <inertial pos="-0.00113926 0.00130909 0.0133464" quat="0.6986657363 0.1400079472 0.05132118063 -0.6997357359" mass="0.00692863" diaginertia="6.65186e-07 5.66522e-07 2.78338e-07" />
+                    <joint name="left_thumb_ip" pos="0 0 0" axis="-1 -0 -0" range="0 1.5708" class="left_thumb_ipl" />
+                    <geom type="mesh" mesh="left_thumb_distal_link" class="left_hand_visual" />
+                    <geom pos="0 -0.0024685 0.029987" quat="0.9999824413 -0.005925972615 0 0" type="mesh" mesh="left_thumb_tip_link" class="left_hand_visual" />
+                    <geom name="left_th_tip" size="0.008 0.006 0.012" pos="0 0.002 0.015" type="box" />
+                    <site name="left_th_tip" pos="0 0.005 0.027" group="4" />
+                    <site name="left_th_tendon1_ip_s0" pos="0 0.0106 0.002" group="4" size="0.001" />
+                    <geom name="left_th_tendon1_ip_g0" rgba="0 1 0 1" size="0.0025 0.005" pos="0 0.008 0.002" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
+                    <site name="left_th_tendon1_ip_s1" pos="0 0.0003 0.0115" group="4" size="0.0001" />
+                  </body>
+                </body>
+              </body>
+            </body>
+            </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <tendon>
+    <spatial name="left_if_tendon0" class="left_mcp_tendon">
+      <site site="left_palm_collision_1" />
+      <geom geom="left_if_proximal_tendon0_g0" sidesite="left_if_proximal_tendon0_s0" />
+      <site site="left_if_proximal_tendon0_s1" />
+      <geom geom="left_if_proximal_tendon2" sidesite="left_if_proximal_tendon0_s2" />
+      <site site="left_if_proximal_tendon0_s3" />
+      <geom geom="left_if_proximal_tendon3" sidesite="left_if_proximal_tendon0_s4" />
+      <site site="left_if_proximal_tendon0_s4" />
+      <geom geom="left_if_dip_tendon0_g0" sidesite="left_if_dip_tendon0_s0" />
+      <site site="left_if_dip_tendon0_s2" />
+    </spatial>
+    <spatial name="left_if_tendon1" class="left_flex_tendon">
+      <site site="left_if_dip_tendon1_s0" />
+      <geom geom="left_if_dip_tendon1_g0" sidesite="left_if_dip_tendon1_s1" />
+      <site site="left_if_dip_tendon1_s1" />
+      <geom geom="left_if_proximal_tendon1_g0" sidesite="left_if_proximal_tendon1_s0" />
+      <site site="left_if_proximal_tendon1_s1" />
+    </spatial>
+    <spatial name="left_if_spring0" class="left_distal_spring">
+      <site site="left_if_proximal_spring0_s0" />
+      <site site="left_if_proximal_spring0_s1" />
+      <geom geom="left_if_proximal_tendon1_g0" />
+      <site site="left_if_middle_spring0_s0" />
+    </spatial>
+    <spatial name="left_if_spring1" class="left_mcp_spring">
+      <site site="left_if_f_spring1_s1" />
+      <geom geom="left_if_f_spring1_g0" />
+      <site site="left_if_proximal_spring1_s0" />
+    </spatial>
+    <spatial name="left_mf_tendon0" class="left_mcp_tendon">
+      <site site="left_palm_collision_2" />
+      <geom geom="left_mf_proximal_tendon0_g0" sidesite="left_mf_proximal_tendon0_s0" />
+      <site site="left_mf_proximal_tendon0_s1" />
+      <geom geom="left_mf_proximal_tendon2" sidesite="left_mf_proximal_tendon0_s2" />
+      <site site="left_mf_proximal_tendon0_s3" />
+      <geom geom="left_mf_proximal_tendon3" sidesite="left_mf_proximal_tendon0_s4" />
+      <site site="left_mf_proximal_tendon0_s4" />
+      <geom geom="left_mf_dip_tendon0_g0" sidesite="left_mf_dip_tendon0_s0" />
+      <site site="left_mf_dip_tendon0_s2" />
+    </spatial>
+    <spatial name="left_mf_tendon1" class="left_flex_tendon">
+      <site site="left_mf_dip_tendon1_s0" />
+      <geom geom="left_mf_dip_tendon1_g0" sidesite="left_mf_dip_tendon1_s1" />
+      <site site="left_mf_dip_tendon1_s1" />
+      <geom geom="left_mf_proximal_tendon1_g0" sidesite="left_mf_proximal_tendon1_s0" />
+      <site site="left_mf_proximal_tendon1_s1" />
+    </spatial>
+    <spatial name="left_mf_spring0" class="left_distal_spring">
+      <site site="left_mf_proximal_spring0_s0" />
+      <site site="left_mf_proximal_spring0_s1" />
+      <geom geom="left_mf_proximal_tendon1_g0" />
+      <site site="left_mf_middle_spring0_s0" />
+    </spatial>
+    <spatial name="left_mf_spring1" class="left_mcp_spring">
+      <site site="left_mf_f_spring1_s1" />
+      <geom geom="left_mf_f_spring1_g0" />
+      <site site="left_mf_proximal_spring1_s0" />
+    </spatial>
+    <spatial name="left_rf_tendon0" class="left_mcp_tendon">
+      <site site="left_palm_collision_3" />
+      <geom geom="left_rf_proximal_tendon0_g0" sidesite="left_rf_proximal_tendon0_s0" />
+      <site site="left_rf_proximal_tendon0_s1" />
+      <geom geom="left_rf_proximal_tendon2" sidesite="left_rf_proximal_tendon0_s2" />
+      <site site="left_rf_proximal_tendon0_s3" />
+      <geom geom="left_rf_proximal_tendon3" sidesite="left_rf_proximal_tendon0_s4" />
+      <site site="left_rf_proximal_tendon0_s4" />
+      <geom geom="left_rf_dip_tendon0_g0" sidesite="left_rf_dip_tendon0_s0" />
+      <site site="left_rf_dip_tendon0_s2" />
+    </spatial>
+    <spatial name="left_rf_tendon1" class="left_flex_tendon">
+      <site site="left_rf_dip_tendon1_s0" />
+      <geom geom="left_rf_dip_tendon1_g0" sidesite="left_rf_dip_tendon1_s1" />
+      <site site="left_rf_dip_tendon1_s1" />
+      <geom geom="left_rf_proximal_tendon1_g0" sidesite="left_rf_proximal_tendon1_s0" />
+      <site site="left_rf_proximal_tendon1_s1" />
+    </spatial>
+    <spatial name="left_rf_spring0" class="left_distal_spring">
+      <site site="left_rf_proximal_spring0_s0" />
+      <site site="left_rf_proximal_spring0_s1" />
+      <geom geom="left_rf_proximal_tendon1_g0" />
+      <site site="left_rf_middle_spring0_s0" />
+    </spatial>
+    <spatial name="left_rf_spring1" class="left_mcp_spring">
+      <site site="left_rf_f_spring1_s1" />
+      <geom geom="left_rf_f_spring1_g0" />
+      <site site="left_rf_proximal_spring1_s0" />
+    </spatial>
+    <spatial name="left_pf_tendon0" class="left_mcp_tendon">
+      <site site="left_palm_collision_4" />
+      <geom geom="left_pf_proximal_tendon0_g0" sidesite="left_pf_proximal_tendon0_s0" />
+      <site site="left_pf_proximal_tendon0_s1" />
+      <geom geom="left_pf_proximal_tendon2" sidesite="left_pf_proximal_tendon0_s2" />
+      <site site="left_pf_proximal_tendon0_s3" />
+      <geom geom="left_pf_proximal_tendon3" sidesite="left_pf_proximal_tendon0_s4" />
+      <site site="left_pf_proximal_tendon0_s4" />
+      <geom geom="left_pf_dip_tendon0_g0" sidesite="left_pf_dip_tendon0_s0" />
+      <site site="left_pf_dip_tendon0_s2" />
+    </spatial>
+    <spatial name="left_pf_tendon1" class="left_flex_tendon">
+      <site site="left_pf_dip_tendon1_s0" />
+      <geom geom="left_pf_dip_tendon1_g0" sidesite="left_pf_dip_tendon1_s1" />
+      <site site="left_pf_dip_tendon1_s1" />
+      <geom geom="left_pf_proximal_tendon1_g0" sidesite="left_pf_proximal_tendon1_s0" />
+      <site site="left_pf_proximal_tendon1_s1" />
+    </spatial>
+    <spatial name="left_pf_spring0" class="left_distal_spring">
+      <site site="left_pf_proximal_spring0_s0" />
+      <site site="left_pf_proximal_spring0_s1" />
+      <geom geom="left_pf_proximal_tendon1_g0" />
+      <site site="left_pf_middle_spring0_s0" />
+    </spatial>
+    <spatial name="left_pf_spring1" class="left_mcp_spring">
+      <site site="left_pf_f_spring1_s1" />
+      <geom geom="left_pf_f_spring1_g0" />
+      <site site="left_pf_proximal_spring1_s0" />
+    </spatial>
+    <spatial name="left_th_tendon1" class="left_mcp_tendon">
+      <site site="left_th_t_tendon0_s0" />
+      <geom geom="left_th_t_tendon0_g0" />
+      <site site="left_th_t_tendon0_s1" />
+      <geom geom="left_th_t_tendon0_g1" />
+      <site site="left_th_t_tendon0_s2" />
+      <geom geom="left_th_t_tendon0_g2" />
+      <site site="left_th_t_tendon0_s3" />
+      <site site="left_th_mcp_tendon0_s0" />
+    </spatial>
+    <spatial name="left_th_tendon2" class="left_flex_tendon">
+      <site site="left_th_t_tendon1_s0" />
+      <geom geom="left_th_t_tendon1_g0" />
+      <site site="left_th_t_tendon1_s1" />
+      <geom geom="left_th_t_tendon1_g1" />
+      <site site="left_th_t_tendon1_s2" />
+      <geom geom="left_th_t_tendon1_g2" />
+      <site site="left_th_t_tendon1_s3" />
+      <geom geom="left_th_t_tendon1_g2" sidesite="left_th_t_tendon1_s3" />
+      <site site="left_th_mcp_tendon1_s0" />
+      <geom geom="left_th_tendon1_ip_g0" sidesite="left_th_tendon1_ip_s0" />
+      <site site="left_th_tendon1_ip_s1" />
+    </spatial>
+    <spatial name="left_th_spring0" class="left_cmc_spring">
+      <site site="left_th_t_spring0_s0" />
+      <site site="left_th_mcp_spring0_s0" />
+    </spatial>
+    <spatial name="left_th_spring1" class="left_distal_spring">
+      <site site="left_th_mcp_spring1_s0" />
+      <geom geom="left_th_proximal_spring1_g0" />
+      <site site="left_th_proximal_spring1_s0" />
+      <geom geom="left_th_proximal_spring1_g0" />
+      <site site="left_th_proximal_spring1_s1" />
+    </spatial>
+  </tendon>
+
+  <actuator>
+    <position name="left_joint1" joint="left_joint1" class="left_piper" kp="80" kv="5" />
+    <position name="left_joint2" joint="left_joint2" class="left_piper" kp="80" kv="5" />
+    <position name="left_joint3" joint="left_joint3" class="left_piper" kp="80" kv="5" />
+    <position name="left_joint4" joint="left_joint4" class="left_piper" kp="40" kv="5" />
+    <position name="left_joint5" joint="left_joint5" class="left_piper" kp="10" kv="1.5" />
+    <position name="left_joint6" joint="left_joint6" class="left_piper" kp="10" kv="1.5" />
+
+    <position name="left_index_A_tendon" tendon="left_if_tendon0" ctrlrange="0.058520 0.110387" kp="10000" />
+    <position name="left_middle_A_tendon" tendon="left_mf_tendon0" ctrlrange="0.058520 0.110387" kp="10000" />
+    <position name="left_ring_A_tendon" tendon="left_rf_tendon0" ctrlrange="0.058520 0.110387" kp="10000" />
+    <position name="left_pinky_A_tendon" tendon="left_pf_tendon0" ctrlrange="0.058520 0.110387" kp="10000" />
+    <position name="left_thumb_A_cmc_abd" joint="left_thumb_cmc_abd" class="left_thumb_cmc" kp="1" />
+    <position name="left_th1_A_tendon" tendon="left_th_tendon1" ctrlrange="0.026152 0.038389" kp="10000" />
+    <position name="left_th2_A_tendon" tendon="left_th_tendon2" ctrlrange="0.081568 0.112138" kp="10000" />
+  </actuator>
+
+  <sensor>
+    <tendonpos name="left_len_if" tendon="left_if_tendon0" />
+    <tendonpos name="left_len_mf" tendon="left_mf_tendon0" />
+    <tendonpos name="left_len_rf" tendon="left_rf_tendon0" />
+    <tendonpos name="left_len_pf" tendon="left_pf_tendon0" />
+    <tendonpos name="left_len_th1" tendon="left_th_tendon1" />
+    <tendonpos name="left_len_th2" tendon="left_th_tendon2" />
+    <jointpos name="left_len_th_abd" joint="left_thumb_cmc_abd" />
+  </sensor>
+
+</mujoco>

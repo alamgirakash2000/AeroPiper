@@ -2,140 +2,9 @@ import mujoco
 import mujoco.viewer
 import numpy as np
 import re
-from pathlib import Path
-import xml.etree.ElementTree as ET
-
-# Ensure left variant XML without defaults exists (avoids duplicate default classes on include)
-left_src = Path("aero_piper/aero_piper_left.xml")
-left_variant = Path("aero_piper/aero_piper_left_nodefault_shifted.xml")
-right_src = Path("aero_piper/aero_piper_right.xml")
-right_variant = Path("aero_piper/aero_piper_right_shifted.xml")
-
-def build_left_variant(src: Path, dst: Path) -> None:
-    xml_text = src.read_text()
-    tree = ET.ElementTree(ET.fromstring(xml_text))
-    root = tree.getroot()
-
-    # 1) Remove top-level <default> to avoid duplicate class names
-    for child in list(root):
-        if child.tag == 'default':
-            root.remove(child)
-            break
-
-    # 2) Trim assets: keep only meshes needed for the left hand subtree (left_* and tetheria_mount)
-    asset = root.find('asset')
-    if asset is not None:
-        for elem in list(asset):
-            tag = elem.tag
-            if tag == 'material':
-                asset.remove(elem)
-                continue
-            if tag == 'mesh':
-                name = elem.get('name')
-                file_attr = elem.get('file', '')
-                # Keep only left_* named meshes and tetheria_mount; drop generic arm meshes (link*, base_link, etc.)
-                keep = (name is not None and (name.startswith('left_') or name == 'tetheria_mount'))
-                if not keep:
-                    # Also drop file-based meshes for links
-                    if file_attr.startswith('link') or file_attr in { 'base_link.stl', 'link1.stl', 'link2.stl', 'link3.stl', 'link4.stl', 'link5.stl', 'link6.stl' }:
-                        asset.remove(elem)
-                        continue
-                    # Otherwise drop unnamed meshes too
-                    if name is None:
-                        asset.remove(elem)
-                        continue
-
-    # Helper: prefix values that are names (skip already left_/right_)
-    def maybe_prefix(val: str) -> str:
-        if val is None:
-            return val
-        if val.startswith('left_') or val.startswith('right_'):
-            return val
-        return 'left_' + val
-
-    # Attributes that reference names and should be prefixed
-    ref_attrs = {
-        'name', 'joint', 'tendon', 'site', 'geom', 'body1', 'body2', 'joint1', 'joint2', 'sidesite', 'body'
-    }
-
-    # 3) Walk all elements and prefix names/references for the left subtree
-    for elem in root.iter():
-        for attr, val in list(elem.attrib.items()):
-            if not val:  # Skip empty values
-                continue
-            # Skip class and material to reuse right-side defaults/materials
-            if attr in ('class', 'material'):
-                continue
-            if attr == 'mesh':
-                # Do not prefix generic arm meshes like link2_0 etc; keep left_* as-is
-                if val.startswith('left_') or val.startswith('right_'):
-                    continue
-                else:
-                    # Reference arm meshes from right include: leave unmodified
-                    continue
-            if attr in ref_attrs:
-                elem.set(attr, maybe_prefix(val))
-
-    # 4) Offset and rename the root left base body (side-by-side along +Y)
-    worldbody = root.find('worldbody')
-    if worldbody is not None:
-        for b in worldbody.findall('body'):
-            if b.get('name') == 'left_base_link' or b.get('name') == 'base_link':
-                b.set('name', 'left_base_link')
-                b.set('pos', '0 0.40 0')
-                break
-
-    # 5) Fix the hand orientation in dual scene: flip mount and palm quaternions to match right hand
-    def find_body_recursive(parent, name):
-        for b in parent.findall('.//body'):
-            if b.get('name') == name:
-                return b
-        return None
-    
-    # Find and fix tetheria_mount orientation (thumb on top)
-    mount = find_body_recursive(root, 'left_tetheria_mount')
-    if mount is not None:
-        mount.set('quat', '-0.5 0.5 0.5 0.5')  # Match right hand orientation
-    
-    # Find and fix palm orientation (mount on back of hand, not palm)
-    palm = find_body_recursive(root, 'left_palm')
-    if palm is not None:
-        palm.set('quat', '0.4056064898 -0.5792092674 0.5792092674 -0.4056064898')  # Flip palm
-
-    dst.write_text(ET.tostring(root, encoding='unicode'))
-
-# Always (re)build the left variant to ensure it's up-to-date
-def build_right_variant(src: Path, dst: Path) -> None:
-    xml_text = src.read_text()
-    tree = ET.ElementTree(ET.fromstring(xml_text))
-    root = tree.getroot()
-    # Offset only the base body along -Y; keep defaults/materials as-is
-    worldbody = root.find('worldbody')
-    if worldbody is not None:
-        for b in worldbody.findall('body'):
-            if b.get('name') == 'right_base_link':
-                b.set('pos', '0 -0.40 0')
-                break
-    dst.write_text(ET.tostring(root, encoding='unicode'))
-
-# (Re)build both variants so positions are side-by-side
-if left_src.exists():
-    build_left_variant(left_src, left_variant)
-if right_src.exists():
-    build_right_variant(right_src, right_variant)
-
-# Function to clean up temporary variant files
-def cleanup_variants():
-    """Remove temporary variant XML files."""
-    if left_variant.exists():
-        left_variant.unlink()
-        print(f"Cleaned up: {left_variant}")
-    if right_variant.exists():
-        right_variant.unlink()
-        print(f"Cleaned up: {right_variant}")
 
 # Load the dual scene (right + left)
-model = mujoco.MjModel.from_xml_path("aero_piper/scene_dual.xml")
+model = mujoco.MjModel.from_xml_path("assets/scene_dual.xml")
 data = mujoco.MjData(model)
 
 print(f"Number of actuators: {model.nu}")
@@ -202,21 +71,20 @@ RIGHT_HAND_SLICE = slice(6, 13)
 LEFT_ARM_SLICE = slice(13, 19)
 LEFT_HAND_SLICE = slice(19, 26)
 
-# Use try-finally to ensure cleanup even if interrupted (Ctrl+C)
-import atexit
 import signal
+import atexit
 
-# Register cleanup to run on exit (handles normal exit and signals)
-atexit.register(cleanup_variants)
+def noop_cleanup():
+    pass
 
-# Also handle termination signals explicitly
+atexit.register(noop_cleanup)
+
 def signal_handler(signum, frame):
-    print(f"\nReceived signal {signum}, cleaning up...")
-    cleanup_variants()
+    print(f"\nReceived signal {signum}.")
     exit(0)
 
-signal.signal(signal.SIGINT, signal_handler)  # Ctrl+C
-signal.signal(signal.SIGTERM, signal_handler)  # Termination
+signal.signal(signal.SIGINT, signal_handler)
+signal.signal(signal.SIGTERM, signal_handler)
 
 try:
     with mujoco.viewer.launch_passive(model, data) as viewer:
@@ -273,10 +141,6 @@ try:
 
 except KeyboardInterrupt:
     print("\nInterrupted by user")
-finally:
-    # Always clean up temporary variant files, even if interrupted
-    print("\nCleaning up temporary files...")
-    cleanup_variants()
 
 
 
