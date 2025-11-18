@@ -1,6 +1,12 @@
 # AeroPiper: TetherIA Aero Hand + AgileX PiPER Arm
 
 <p align="center">
+  <img src="images/sequence.gif" alt="Demo" width="90%"/>
+</p>
+
+## Images
+
+<p align="center">
   <img src="images/piper.png" alt="PiPER Arm" width="45%"/>
   <img src="images/aero_hand_open.png" alt="TetherIA Aero Hand" width="45%"/>
   <br/>
