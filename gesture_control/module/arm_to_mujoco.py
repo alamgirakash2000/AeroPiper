@@ -44,10 +44,12 @@ def normalized_to_mujoco(values: Iterable[float]) -> np.ndarray:
         )
     arr = np.clip(arr, -1.0, 1.0)
     joint_targets = np.zeros(6, dtype=float)
-    # Neutral posture for uncontrollable joints (J4, J5)
+    # Neutral posture for uncontrollable joints (J3 shoulder roll, J5 wrist pitch)
     joint_targets[:] = (ARM_MIN + ARM_MAX) * 0.5
 
-    mapping = [0, 1, 2, 5]  # map DOFs -> joints (J1, J2, J3, J6)
+    # Drive the DOFs we currently trust from vision: base yaw (J1), shoulder
+    # pitch (J2), elbow flex (J4), and wrist roll (J6).
+    mapping = [0, 1, 3, 5]
     for value, joint_idx in zip(arr, mapping):
         ratio = (value + 1.0) * 0.5  # [-1,1] -> [0,1]
         joint_targets[joint_idx] = ARM_MIN[joint_idx] + (ARM_MAX[joint_idx] - ARM_MIN[joint_idx]) * ratio

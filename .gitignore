@@ -1,0 +1,50 @@
+# Python bytecode / cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyd
+
+# Build / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+*.spec
+
+# Virtual environments & local tooling
+.venv/
+venv/
+env/
+.env
+.env.*
+
+# Logs & temp files
+*.log
+*.tmp
+*.swp
+
+# IDE / editor settings
+.idea/
+.vscode/
+*.code-workspace
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# YOLO / model checkpoints
+*.pt
+*.pth
+*.onnx
+gesture_control/module/weights/*
+!gesture_control/module/weights/.gitkeep
+yolo11n-pose.pt
+
+# Ultralytics run folders
+runs/
+runs_*/
+
+# Misc
+.mujoco_log.txt
+

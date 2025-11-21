@@ -75,8 +75,14 @@ pip install mujoco
 
 #### For the gesture control
 ```bash
-pip install opencv-python mediapipe
+pip install opencv-python mediapipe ultralytics
+# Install the Torch build that matches your CUDA driver (example for CUDA 12.1)
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 ```
+
+Ultralytics will automatically download public checkpoints (default `yolo11n-pose.pt`) the first time you run the hand tracker. To use a custom model, place the `.pt` file in `gesture_control/module/weights/` and pass `--yolo-weights /abs/path/to/file.pt`.
+
+> **Need per-finger YOLO weights?** The stock `yolo11n-pose.pt` model is trained on COCO body pose (17 keypoints) and cannot emit finger joints. Train or download a 21-keypoint hand pose checkpoint (e.g., `yolo pose train data=hand-keypoints.yaml model=yolo11n-pose.pt epochs=100 imgsz=640`) and run with `--yolo-weights /path/to/best.pt`. Until a hand-specific checkpoint is provided, the script automatically warns and falls back to MediaPipe landmarks.
 
 
 ## Work with the Physical Robot
@@ -134,7 +140,7 @@ This uses `aero_piper/scene_dual.xml`, driving two independent 6‑DOF arms and 
 
 The `gesture_control/` folder contains lightweight MuJoCo demos that mirror your hand or arm motion from a single webcam.
 
-- `gesture_control/left_hand_gesture.py`: tracks a real left hand with MediaPipe Hands and drives the AeroPiper fingers (7 DOFs). Run it with:
+- `gesture_control/left_hand_gesture.py`: tracks a real left hand with Ultralytics YOLO pose (requires a 21-keypoint hand checkpoint; falls back to MediaPipe if none is supplied) and drives the AeroPiper fingers (7 DOFs). Run it with:
 
   ```bash
   python gesture_control/left_hand_gesture.py
@@ -152,4 +158,4 @@ The `gesture_control/` folder contains lightweight MuJoCo demos that mirror your
   python gesture_control/left_combo_gesture.py
   ```
 
-All scripts mirror the webcam preview by default (toggle with `--no-mirror-preview`) and accept `--camera-index`, `--print-only`, smoothing/deadband flags, plus `--max-step` (for arm motion) to clamp sudden pose spikes. Make sure the `opencv-python` and `mediapipe` packages are installed and that the webcam can see your full left arm.
+All scripts mirror the webcam preview by default (toggle with `--no-mirror-preview`) and accept `--camera-index`, `--print-only`, smoothing/deadband flags, plus `--max-step` (for arm motion) to clamp sudden pose spikes. Make sure `opencv-python` and `mediapipe` are installed for the arm/combo trackers, and install `ultralytics` + `torch` (with the appropriate CUDA build) for the YOLO-based hand tracker. Use `--yolo-weights`, `--hand-backend`, `--thumb-flexion-gain`, `--thumb-flexion-bias`, `--thumb-abd-gain`, `--thumb-abd-bias`, `--thumb-abd-invert`, `--thumb-abd-smoothing`, `--thumb-abd-deadband`, `--thumb1-curve`, `--thumb2-curve`, `--thumb1-freeze-seconds`, `--yolo-device`, `--yolo-imgsz`, and `--pseudo-depth-scale` to fine-tune accuracy for your GPU/webcam setup. Place a 21-keypoint YOLO checkpoint in `gesture_control/module/weights/` or provide an absolute path if you want something other than the auto-downloaded `yolo11n-pose.pt`; otherwise the app will warn and continue with the MediaPipe backend.

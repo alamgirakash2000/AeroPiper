@@ -1,3 +1,5 @@
+################################################################
+###########left_arm_gesture###############
 """
 Control the AeroPiper left arm in MuJoCo with real-time webcam arm tracking.
 """
@@ -56,10 +58,17 @@ def _apply_deadband(values: np.ndarray, previous: np.ndarray | None, threshold: 
     return filtered
 
 
+def _write_two_line_block(line1: str, line2: str):
+    """Write two persistent CLI lines without scrolling."""
+    sys.stdout.write(f"{line1}\033[K\n{line2}\033[K")
+    sys.stdout.write("\033[F")
+    sys.stdout.flush()
+
+
 def _print_status(
     normalized: np.ndarray,
     joints: np.ndarray,
-    prefix: str = "[Arm DOFs]",
+    prefix: str = "[Arm|Print]",
 ):
     norm_stats = " ".join(
         f"{name}:{value:+4.2f}" for name, value in zip(ARM_LABELS, normalized)
@@ -67,8 +76,9 @@ def _print_status(
     joint_stats = " ".join(
         f"J{idx + 1}:{value:+5.2f}" for idx, value in enumerate(joints)
     )
-    lines = f"\r{prefix} {norm_stats}\n[Joints] {joint_stats}"
-    print(lines, end="\033[F", flush=True)
+    line1 = f"\r{prefix} Arm DOFs {norm_stats}"
+    line2 = f"[Joints] {joint_stats}"
+    _write_two_line_block(line1, line2)
 
 
 def run_tracking_only(
@@ -105,7 +115,7 @@ def run_simulation(controller, update_threshold: float, print_interval: float):
             arm_targets = normalized_to_mujoco(filtered[CONTROL_IDXS])
             now = time.time()
             if now - last_print >= max(print_interval, 1e-3):
-                _print_status(filtered, arm_targets, prefix="[Arm DOFs|Sim]")
+                _print_status(filtered, arm_targets, prefix="[Arm|Sim ]")
                 last_print = now
 
             targets = np.concatenate([arm_targets, HAND_OPEN_TARGETS])
@@ -164,6 +174,51 @@ def parse_args():
         default=0.35,
         help="Maximum normalized jump allowed per frame; larger spikes are clamped (default: 0.35).",
     )
+    parser.add_argument(
+        "--yolo-model",
+        default="yolov8n-pose.pt",
+        help="Ultralytics YOLO pose weights file to load for arm tracking.",
+    )
+    parser.add_argument(
+        "--yolo-conf",
+        type=float,
+        default=0.45,
+        help="Confidence threshold for YOLO pose detections (default: 0.45).",
+    )
+    parser.add_argument(
+        "--yolo-iou",
+        type=float,
+        default=0.5,
+        help="IoU threshold for YOLO pose NMS (default: 0.5).",
+    )
+    parser.add_argument(
+        "--yolo-imgsz",
+        type=int,
+        default=640,
+        help="Image size (pixels) used by YOLO during inference (default: 640).",
+    )
+    parser.add_argument(
+        "--yolo-device",
+        default=None,
+        help="Torch device string for YOLO (e.g., 'cuda:0' or 'cpu'). Defaults to auto-detect.",
+    )
+    parser.add_argument(
+        "--yolo-max-det",
+        type=int,
+        default=1,
+        help="Maximum number of pose detections per frame (default: 1).",
+    )
+    parser.add_argument(
+        "--yolo-frame-skip",
+        type=int,
+        default=1,
+        help="Number of frames to skip between YOLO inferences (default: 1).",
+    )
+    parser.add_argument(
+        "--yolo-half",
+        action="store_true",
+        help="Use half-precision (FP16) inference when running on CUDA devices.",
+    )
     return parser.parse_args()
 
 
@@ -177,6 +232,14 @@ def main():
             mirror_preview=not args.no_mirror_preview,
             smoothing=args.smoothing,
             max_step=args.max_step,
+            yolo_weights=args.yolo_model,
+            yolo_confidence=args.yolo_conf,
+            yolo_iou=args.yolo_iou,
+            yolo_imgsz=args.yolo_imgsz,
+            yolo_device=args.yolo_device,
+            yolo_max_det=args.yolo_max_det,
+            yolo_frame_skip=args.yolo_frame_skip,
+            yolo_half_precision=args.yolo_half,
         )
         threshold = max(args.update_threshold, 0.0)
         if args.print_only:
@@ -196,4 +259,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
