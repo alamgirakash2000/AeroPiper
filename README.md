@@ -73,6 +73,12 @@ pip install aero-open-sdk
 pip install mujoco
 ```
 
+#### For the gesture control
+```bash
+pip install opencv-python mediapipe
+```
+
+
 ## Work with the Physical Robot
 After connecting the Aero Hand to the PiPER arm using the 3D printed mount, plug in both devices and run:
 
