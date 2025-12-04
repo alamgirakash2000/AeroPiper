@@ -34,7 +34,7 @@ def _parse_args() -> argparse.Namespace:
   )
   parser.add_argument(
       "--mjcf",
-      default="assets/scene_dual_with_frame.xml",
+      default="assets/scene.xml",
       help="Path to the MJCF file to watch.",
   )
   parser.add_argument(

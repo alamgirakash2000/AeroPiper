@@ -10,7 +10,7 @@ import time
 
 def main():
     # Load the model
-    model = mujoco.MjModel.from_xml_path("assets/scene_dual_with_frame.xml")
+    model = mujoco.MjModel.from_xml_path("assets/scene.xml")
     data = mujoco.MjData(model)
 
     def apply_midpose():
@@ -95,9 +95,10 @@ def main():
         while viewer.is_running():
             step_start = time.time()
 
-            # Enforce joint positions to exactly match ctrl for joint-driven actuators.
-            # We zero velocities and call mj_forward so the viewer shows the
-            # commanded state without physics pulling it away.
+            # Step physics so tendon/hand actuators respond to ctrl
+            mujoco.mj_step(model, data)
+
+            # Hard-clamp joint-actuated arm DoFs to ctrl to prevent drift
             for qadr, act_id, _ in joint_actuators:
                 data.qpos[qadr] = data.ctrl[act_id]
             data.qvel[:] = 0

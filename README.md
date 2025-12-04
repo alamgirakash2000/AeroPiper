@@ -26,39 +26,42 @@ Use this as a practical, open resource for research, education, and rapid protot
 - **MuJoCo documentation**: `https://mujoco.readthedocs.io`
 
 ## Folder Structure
-Below is the high-level layout (images directory omitted):
+High-level layout (images omitted):
 
 ```text
 .
-├── aero_piper/
-│   ├── aero_piper_left.xml
-│   ├── aero_piper_right.xml
-│   ├── scene_left.xml
-│   ├── scene_right.xml
-│   ├── scene_dual.xml
-│   └── combined_arm_hand/
-│       └── assets/            # STL/OBJ meshes for the arm and hands
+├── assets/
+│   ├── scene.xml                # main dual scene with frame
+│   ├── aero_piper_left_hanging.xml
+│   ├── aero_piper_right_hanging.xml
+│   ├── frame/
+│   └── xml_utils/
 ├── scripts/
-│   ├── robot_connection.py
-│   ├── reach_task.py
-│   ├── left_aero_piper_control.py
-│   ├── right_aero_piper_control.py
-│   └── dual_aero_control.py
-├── arm_hand_control_dual.py
+│   ├── live_viewer.py
+│   ├── test_keyframes.py
+│   ├── dual_arm_sequence.py
+│   ├── run_aero_sequence.py
+│   └── robot_connection.py
+├── gesture_control/
+│   ├── hands_control.py
+│   ├── arms_and_hands_control.py
+│   └── physical_hand_gesture.py
+├── images/
 └── README.md
 ```
 
 Brief descriptions:
-- `aero_piper/`: MuJoCo scenes and resources for single and dual setups.
-  - `scene_left.xml`, `scene_right.xml`, `scene_dual.xml`: ready-to-run scenes.
-  - `aero_piper_left.xml`, `aero_piper_right.xml`: component models used by scenes.
-  - `combined_arm_hand/assets/`: 3D meshes for the PiPER arm and Aero hands.
+- `assets/`: MuJoCo scenes (dual with frame, hanging variants) and arena helpers.
 - `scripts/`:
-  - `robot_connection.py`: one-click bring-up; configures CAN and serial, initializes both devices; exposes helpers.
-  - `reach_task.py`: simple physical demo (approach, grasp, lift, home) using helpers.
-  - `left_aero_piper_control.py`, `right_aero_piper_control.py`: single-arm+hand simulation runners.
-  - `dual_aero_control.py`: dual-arm+hand simulation runner.
-- `arm_hand_control_dual.py`: standalone dual simulation utility that builds left/right variants and launches a dual viewer.
+  - `live_viewer.py`: hot-reload viewer for MJCF edits.
+  - `test_keyframes.py`: mid-pose clamp; lets you drive joints via viewer sliders.
+  - `dual_arm_sequence.py`: scripted dual-arm + hands trajectory demo.
+  - `run_aero_sequence.py`: wrapper to launch predefined trajectories.
+  - `robot_connection.py`: physical bring-up helper for CAN/serial.
+- `gesture_control/`:
+  - `hands_control.py`: dual-hand webcam control driving both simulated hands.
+  - `arms_and_hands_control.py`: webcam control of arms + hands together.
+  - `physical_hand_gesture.py`: physical hand gesture mapping utility.
 
 ## Installation
 - **Python**: 3.13.5
@@ -91,6 +94,7 @@ After connecting the Aero Hand to the PiPER arm using the 3D printed mount, plug
 ```bash
 python scripts/robot_connection.py
 python scripts/reach_task.py
+python scripts/run_aero_sequence.py
 ```
 
 The scripts will automatically:
@@ -101,61 +105,35 @@ The scripts will automatically:
 
 This takes ~3 minutes and calibrates the hand to its zero positions.
 
-## Work in the MuJoCo Simulation
-
-<p align="center">
-  <img src="images/left.png" alt="Left setup" width="45%"/>
-  <img src="images/right.png" alt="Right setup" width="45%"/>
-</p>
-
-### Left hand
-```bash
-python scripts/left_aero_piper_control.py
-```
-Uses `aero_piper/scene_left.xml` and runs a reproducible random arm trajectory with a smooth gesture sequence.
-
-### Right hand
-```bash
-python scripts/right_aero_piper_control.py
-```
-Uses `aero_piper/scene_right.xml` with the same control pattern.
-
-## Use both hands with two arms
-
-<p align="center">
-  <img src="images/dual_1.png" alt="Dual 1" width="45%"/>
-  <img src="images/dual_2.png" alt="Dual 2" width="45%"/>
-  <br/>
-</p>
-
-Run the dual-arm+dual-hand simulation:
-
-```bash
-python scripts/dual_aero_control.py
-```
-
-This uses `aero_piper/scene_dual.xml`, driving two independent 6‑DOF arms and two 7‑DOF tendon-driven hands with staggered gesture cycles.
-
-## Webcam Gesture Control
-
-The `gesture_control/` folder contains lightweight MuJoCo demos that mirror your hand or arm motion from a single webcam.
-
-- `gesture_control/left_hand_gesture.py`: tracks a real left hand with Ultralytics YOLO pose (requires a 21-keypoint hand checkpoint; falls back to MediaPipe if none is supplied) and drives the AeroPiper fingers (7 DOFs). Run it with:
-
+#### Physical hand gesture mapper:
   ```bash
-  python gesture_control/left_hand_gesture.py
+  python gesture_control/physical_hand_gesture.py
   ```
 
-- `gesture_control/left_arm_gesture.py`: tracks your upper body with MediaPipe Pose and drives the four joints that matter most for quick teleop (J1 base yaw, J2 shoulder pitch, J3 elbow flex, J6 wrist roll). Fingers stay open by default so you can focus on the arm:
+## Work in MuJoCo
 
+- Inspect joints/keyframes and drive via sliders (arms clamped, fingers responsive):
   ```bash
-  python gesture_control/left_arm_gesture.py
+  python scripts/test_keyframes.py
+  ```
+- Run scripted dual-arm + hands trajectory demo:
+  ```bash
+  python scripts/dual_arm_sequence.py
   ```
 
-- `gesture_control/left_combo_gesture.py`: shares a single webcam feed and mirrored preview window between both trackers so you can teleoperate all 13 DOFs (6 arm joints + 7 tendons) at once:
+## Gesture Control
 
+- Dual-hand tracking to drive both simulated hands:
   ```bash
-  python gesture_control/left_combo_gesture.py
+  python gesture_control/hands_control.py
   ```
+  Tracks both hands with MediaPipe; maps to finger actuators in `assets/scene.xml`. Use `--no-preview` for less lag; tweak `--smoothing` / `--update-threshold` for responsiveness.
 
-All scripts mirror the webcam preview by default (toggle with `--no-mirror-preview`) and accept `--camera-index`, `--print-only`, smoothing/deadband flags, plus `--max-step` (for arm motion) to clamp sudden pose spikes. Make sure `opencv-python` and `mediapipe` are installed for the arm/combo trackers, and install `ultralytics` + `torch` (with the appropriate CUDA build) for the YOLO-based hand tracker. Use `--yolo-weights`, `--hand-backend`, `--thumb-flexion-gain`, `--thumb-flexion-bias`, `--thumb-abd-gain`, `--thumb-abd-bias`, `--thumb-abd-invert`, `--thumb-abd-smoothing`, `--thumb-abd-deadband`, `--thumb1-curve`, `--thumb2-curve`, `--thumb1-freeze-seconds`, `--yolo-device`, `--yolo-imgsz`, and `--pseudo-depth-scale` to fine-tune accuracy for your GPU/webcam setup. Place a 21-keypoint YOLO checkpoint in `gesture_control/module/weights/` or provide an absolute path if you want something other than the auto-downloaded `yolo11n-pose.pt`; otherwise the app will warn and continue with the MediaPipe backend.
+- Arms + hands together from one webcam:
+  ```bash
+  python gesture_control/arms_and_hands_control.py
+  ```
+  Controls arms (shoulder/elbow/wrist) and fingers in one loop; uses the same scene.
+  ```
+  Utility for mapping captured gestures to physical hand commands.
+
