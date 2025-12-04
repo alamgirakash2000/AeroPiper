@@ -1,4 +1,3 @@
-######## Arm Tracker###########
 """
 Real-time upper-body tracking using Ultralytics YOLO pose models to drive the AeroPiper arm.
 """
@@ -620,3 +619,4 @@ class ArmGestureController:
             return float(np.clip(normalized * 2.0 - 1.0, -1.0, 1.0))
 
         return float(np.clip(raw_value, -1.0, 1.0))
+

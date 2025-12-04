@@ -12,7 +12,7 @@ import cv2  # type: ignore[import]
 import numpy as np
 
 from arm_tracker import ArmGestureController  # type: ignore[import]
-from hand_tracker import DEFAULT_YOLO_WEIGHTS, HandGestureController  # type: ignore[import]
+from hand_tracker import HandGestureController  # type: ignore[import]
 
 ARM_LABELS = ["BaseYaw", "ShoulderPitch", "ElbowFlex", "WristRoll"]
 HAND_LABELS = ["ThumbAbd", "Thumb1", "Thumb2", "Index", "Middle", "Ring", "Pinky"]
@@ -34,25 +34,6 @@ class ComboGestureController:
         max_step: float = 0.35,
         hand_smoothing: float = 0.35,
         hand_idle_decay: float = 0.97,
-        hand_backend: str = "yolo",
-        hand_yolo_weights: str = DEFAULT_YOLO_WEIGHTS,
-        hand_yolo_imgsz: int = 640,
-        hand_yolo_confidence: float = 0.45,
-        hand_yolo_device: Optional[str] = None,
-        hand_handedness: str = "left",
-        hand_pseudo_depth_scale: float = 0.08,
-        hand_max_hands: int = 1,
-        hand_allow_mediapipe_fallback: bool = True,
-        hand_thumb_flexion_gain: float = 1.8,
-        hand_thumb_flexion_bias: float = 0.0,
-        hand_thumb_abd_gain: float = 1.5,
-        hand_thumb_abd_bias: float = 0.0,
-        hand_thumb_abd_invert: bool = False,
-        hand_thumb_abd_smoothing: float = 0.35,
-        hand_thumb_abd_deadband: float = 0.08,
-        hand_thumb1_curve: float = 0.75,
-        hand_thumb2_curve: float = 1.05,
-        hand_thumb1_freeze_seconds: float = 0.4,
     ):
         self._camera_index = camera_index
         self._show_preview = show_preview
@@ -83,25 +64,6 @@ class ComboGestureController:
             smoothing=hand_smoothing,
             idle_decay=hand_idle_decay,
             frame_provider=_frame_provider,
-            backend=hand_backend,
-            yolo_weights=hand_yolo_weights,
-            yolo_imgsz=hand_yolo_imgsz,
-            yolo_confidence=hand_yolo_confidence,
-            yolo_device=hand_yolo_device,
-            handedness=hand_handedness,
-            pseudo_depth_scale=hand_pseudo_depth_scale,
-            max_hands=hand_max_hands,
-            mediapipe_fallback=hand_allow_mediapipe_fallback,
-            thumb_flexion_gain=hand_thumb_flexion_gain,
-            thumb_flexion_bias=hand_thumb_flexion_bias,
-            thumb_abd_gain=hand_thumb_abd_gain,
-            thumb_abd_bias=hand_thumb_abd_bias,
-            thumb_abd_invert=hand_thumb_abd_invert,
-            thumb_abd_smoothing=hand_thumb_abd_smoothing,
-            thumb_abd_deadband=hand_thumb_abd_deadband,
-            thumb1_curve=hand_thumb1_curve,
-            thumb2_curve=hand_thumb2_curve,
-            thumb1_freeze_seconds=hand_thumb1_freeze_seconds,
         )
 
         self._arm_values = np.zeros(len(ARM_LABELS), dtype=np.float32)

@@ -1,5 +1,3 @@
-################################################################
-###########left_arm_gesture###############
 """
 Control the AeroPiper left arm in MuJoCo with real-time webcam arm tracking.
 """
@@ -259,3 +257,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
