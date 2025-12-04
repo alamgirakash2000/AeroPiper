@@ -37,6 +37,7 @@ Thumbs.db
 *.pt
 *.pth
 *.onnx
+*.pkl
 gesture_control/module/weights/*
 !gesture_control/module/weights/.gitkeep
 yolo11n-pose.pt
