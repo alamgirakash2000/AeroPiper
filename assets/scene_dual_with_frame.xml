@@ -20,15 +20,15 @@
 
   <include file="aero_piper_right_hanging.xml"/>
   <include file="aero_piper_left_hanging.xml"/>
-  <include file="xml_utils/table_arena.xml"/>
+  <include file="xml_utils/floor_arena.xml"/>
   
   <asset>
     <mesh name="frame_mesh" file="../../frame/frame.stl" scale="0.001 0.001 0.001"/>
   </asset>
 
   <worldbody>
-    <!-- Frame on table -->
-    <body name="frame" pos="0 0 0.715">
+    <!-- Frame on floor -->
+    <body name="frame" pos="0 0 -0.084775">
       <geom name="frame_geom" type="mesh" mesh="frame_mesh" rgba="0.2 0.2 0.8 1"/>
       <body name="right_arm_mount_frame" pos="0.25 -0.15 1.335" quat="0 1 0 0"/>
       <body name="left_arm_mount_frame" pos="0.25 0.15 1.335" quat="0 1 0 0"/>

@@ -218,27 +218,6 @@
     <exclude body1="palm" body2="right_middle_middle_link" />
     <exclude body1="palm" body2="right_ring_middle_link" />
     <exclude body1="palm" body2="right_pinky_middle_link" />
-    <exclude body1="tetheria_mount" body2="palm" />
-    <exclude body1="tetheria_mount" body2="right_t_link" />
-    <exclude body1="tetheria_mount" body2="right_index_f_link" />
-    <exclude body1="tetheria_mount" body2="right_middle_f_link" />
-    <exclude body1="tetheria_mount" body2="right_ring_f_link" />
-    <exclude body1="tetheria_mount" body2="right_pinky_f_link" />
-    <exclude body1="tetheria_mount" body2="right_thumb_mcp_link" />
-    <exclude body1="tetheria_mount" body2="right_index_proximal_link" />
-    <exclude body1="tetheria_mount" body2="right_middle_proximal_link" />
-    <exclude body1="tetheria_mount" body2="right_ring_proximal_link" />
-    <exclude body1="tetheria_mount" body2="right_pinky_proximal_link" />
-    <exclude body1="tetheria_mount" body2="right_thumb_proximal_link" />
-    <exclude body1="tetheria_mount" body2="right_index_middle_link" />
-    <exclude body1="tetheria_mount" body2="right_middle_middle_link" />
-    <exclude body1="tetheria_mount" body2="right_ring_middle_link" />
-    <exclude body1="tetheria_mount" body2="right_pinky_middle_link" />
-    <exclude body1="tetheria_mount" body2="right_thumb_distal_link" />
-    <exclude body1="tetheria_mount" body2="right_index_distal_link" />
-    <exclude body1="tetheria_mount" body2="right_middle_distal_link" />
-    <exclude body1="tetheria_mount" body2="right_ring_distal_link" />
-    <exclude body1="tetheria_mount" body2="right_pinky_distal_link" />
     <exclude body1="right_t_link" body2="right_index_f_link" />
     <exclude body1="right_t_link" body2="right_middle_f_link" />
     <exclude body1="right_t_link" body2="right_ring_f_link" />
@@ -261,7 +240,7 @@
 
   <worldbody>
     <!-- Robot will be placed in scene -->
-    <body name="right_base_link" childclass="piper" gravcomp="1" pos="0.21 -0.15 2.05" quat="0 1 0 0">
+    <body name="right_base_link" childclass="piper" gravcomp="1" pos="0.21 -0.15 1.250225" quat="0 1 0 0">
       <inertial pos="-0.00979275 1.82906e-06 0.04101" quat="0.692988 -0.137524 -0.137826 0.69416" mass="0.162549" diaginertia="0.000269445 0.000227478 0.000221437"/>
       <geom class="visual" density="0" mesh="base_link" material="gray_mat"/>
       <geom class="collision" mesh="base_link"/>
@@ -272,7 +251,7 @@
         <geom class="collision" mesh="link1"/>
         <body name="right_link2" quat="0.499998 0.5 -0.500002 -0.5" gravcomp="1">
           <inertial pos="0.148794 -0.00242027 0.00175155" quat="-0.0249063 0.70684 0.00803509 0.706889" mass="0.290889" diaginertia="0.00177549 0.00173142 0.00014552"/>
-          <joint name="joint2" axis="0 0 1" range="0 3.14"/>
+          <joint name="joint2" axis="0 0 1" range="0 3.14" ref="1.5708"/>
           <geom mesh="link2_0" material="gray_mat" class="visual"/>
           <geom mesh="link2_1" material="darker_gray_mat" class="visual"/>
           <geom mesh="link2_2" material="darker_gray_mat" class="visual"/>
@@ -308,7 +287,7 @@
           <geom mesh="link2" class="collision"/>
           <body name="right_link3" pos="0.28358 0.028726 0" quat="0.998726 0 0 0.0504536" gravcomp="1">
             <inertial pos="-0.0996835 0.0349477 0.000508026" quat="0.0777021 0.702287 -0.0990541 0.700674" mass="0.290848" diaginertia="0.000241946 0.000222224 0.000100384"/>
-            <joint name="joint3" pos="0 0 0" axis="0 0 1" range="-2.697 0"/>
+            <joint name="joint3" pos="0 0 0" axis="0 0 1" range="-2.697 0" ref="-1.5708"/>
             <geom mesh="link3_0" material="darker_gray_mat" class="visual"/>
             <geom mesh="link3_1" material="red_mat" class="visual"/>
             <geom mesh="link3_2" material="gray_mat" class="visual"/>
@@ -364,13 +343,8 @@
                   <!-- Gripper geometry removed - using hand as end effector instead -->
                   
                   <!-- Hand attached directly to link6, rotates with joint6 -->
-                  <!-- Rotated to align with arm direction (forward) -->
-                  <body name="tetheria_mount" pos="0 0 0.03" quat="-0.5 0.5 0.5 0.5" childclass="tetheria_rh">
-                    <geom name="tetheria_mount_visual" pos="0.04 0.01 -0.012" quat="0.4085 -0.5730 0.5730 -0.4085" class="hand_visual" mesh="right_tetheria_mount" />
-                    <geom name="tetheria_mount_collision_0" size="0.002 0.025 0.005" pos="0.0405 -0.02 0.009" quat="0.5734623417 0 0.8192319224 0" type="box" />
-                    <geom name="tetheria_mount_collision_1" size="0.005 0.010 0.005" pos="0.045 -0.053 0.002" quat="-0.4987168014 0.6499403818 0.349101751 0.4549582613" type="box" />
-                    <site name="grasp_site" pos="0.11 0 0.03" group="4" />
-                    <body name="palm" pos="0.04 0.01 -0.015" quat="0.4056 -0.5792 0.5792 -0.4056">
+                  <site name="grasp_site" pos="0 -0.03 0.14" group="4" />
+                  <body name="palm" pos="0 0 0" quat="1 0 0 0" childclass="tetheria_rh">
 
             <geom type="mesh" class="hand_visual" mesh="right_frame_link" />
             <geom name="palm_collision_1" size="0.006 0.006 0.006" pos="0.031 -0.0045 0.096" quat="-0.5 -0.5 -0.5 0.5" type="box" />
@@ -629,7 +603,6 @@
               </body><!-- close right_thumb_mcp_link -->
             </body><!-- close right_t_link -->
             </body><!-- close palm -->
-                  </body><!-- close tetheria_mount -->
                 </body><!-- close link6 -->
               </body><!-- close link5 -->
             </body><!-- close link4 -->

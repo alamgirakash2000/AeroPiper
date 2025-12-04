@@ -218,27 +218,6 @@
     <exclude body1="left_palm" body2="left_middle_middle_link" />
     <exclude body1="left_palm" body2="left_ring_middle_link" />
     <exclude body1="left_palm" body2="left_pinky_middle_link" />
-    <exclude body1="left_tetheria_mount" body2="left_palm" />
-    <exclude body1="left_tetheria_mount" body2="left_t_link" />
-    <exclude body1="left_tetheria_mount" body2="left_index_f_link" />
-    <exclude body1="left_tetheria_mount" body2="left_middle_f_link" />
-    <exclude body1="left_tetheria_mount" body2="left_ring_f_link" />
-    <exclude body1="left_tetheria_mount" body2="left_pinky_f_link" />
-    <exclude body1="left_tetheria_mount" body2="left_thumb_mcp_link" />
-    <exclude body1="left_tetheria_mount" body2="left_index_proximal_link" />
-    <exclude body1="left_tetheria_mount" body2="left_middle_proximal_link" />
-    <exclude body1="left_tetheria_mount" body2="left_ring_proximal_link" />
-    <exclude body1="left_tetheria_mount" body2="left_pinky_proximal_link" />
-    <exclude body1="left_tetheria_mount" body2="left_thumb_proximal_link" />
-    <exclude body1="left_tetheria_mount" body2="left_index_middle_link" />
-    <exclude body1="left_tetheria_mount" body2="left_middle_middle_link" />
-    <exclude body1="left_tetheria_mount" body2="left_ring_middle_link" />
-    <exclude body1="left_tetheria_mount" body2="left_pinky_middle_link" />
-    <exclude body1="left_tetheria_mount" body2="left_thumb_distal_link" />
-    <exclude body1="left_tetheria_mount" body2="left_index_distal_link" />
-    <exclude body1="left_tetheria_mount" body2="left_middle_distal_link" />
-    <exclude body1="left_tetheria_mount" body2="left_ring_distal_link" />
-    <exclude body1="left_tetheria_mount" body2="left_pinky_distal_link" />
     <exclude body1="left_t_link" body2="left_index_f_link" />
     <exclude body1="left_t_link" body2="left_middle_f_link" />
     <exclude body1="left_t_link" body2="left_ring_f_link" />
@@ -261,7 +240,7 @@
 
   <worldbody>
     
-    <body name="left_base_link" childclass="left_piper" gravcomp="1" pos="0.21 0.15 2.05" quat="0 1 0 0">
+    <body name="left_base_link" childclass="left_piper" gravcomp="1" pos="0.21 0.15 1.250225" quat="0 1 0 0">
       <!-- <inertial pos="-0.00979275 1.82906e-06 0.04101" quat="0.692988 -0.137524 -0.137826 0.69416" mass="0.162549" diaginertia="0.000269445 0.000227478 0.000221437" /> -->
       <inertial pos="-0.00979275 1.82906e-06 0.04101" quat="0.692988 -0.137524 -0.137826 0.69416" mass="0.162549" diaginertia="0.000269445 0.000227478 0.000221437" />
       <geom class="left_visual" density="0" mesh="left_base_link" material="left_gray_mat" />
@@ -273,7 +252,7 @@
         <geom class="left_collision" mesh="left_link1" />
         <body name="left_link2" quat="0.499998 0.5 -0.500002 -0.5" gravcomp="1">
           <inertial pos="0.148794 -0.00242027 0.00175155" quat="-0.0249063 0.70684 0.00803509 0.706889" mass="0.290889" diaginertia="0.00177549 0.00173142 0.00014552" />
-          <joint name="left_joint2" axis="0 0 1" range="0 3.14" />
+          <joint name="left_joint2" axis="0 0 1" range="0 3.14" ref="1.5708" />
           <geom mesh="left_link2_0" material="left_gray_mat" class="left_visual" />
           <geom mesh="left_link2_1" material="left_darker_gray_mat" class="left_visual" />
           <geom mesh="left_link2_2" material="left_darker_gray_mat" class="left_visual" />
@@ -309,7 +288,7 @@
           <geom mesh="left_link2" class="left_collision" />
           <body name="left_link3" pos="0.28358 0.028726 0" quat="0.998726 0 0 0.0504536" gravcomp="1">
             <inertial pos="-0.0996835 0.0349477 0.000508026" quat="0.0777021 0.702287 -0.0990541 0.700674" mass="0.290848" diaginertia="0.000241946 0.000222224 0.000100384" />
-            <joint name="left_joint3" pos="0 0 0" axis="0 0 1" range="-2.697 0" />
+            <joint name="left_joint3" pos="0 0 0" axis="0 0 1" range="-2.697 0" ref="-1.5708" />
             <geom mesh="left_link3_0" material="left_darker_gray_mat" class="left_visual" />
             <geom mesh="left_link3_1" material="left_red_mat" class="left_visual" />
             <geom mesh="left_link3_2" material="left_gray_mat" class="left_visual" />
@@ -366,12 +345,8 @@
                   
                   
                   
-                  <body name="left_tetheria_mount" pos="0 0 0.03" quat="-0.5 0.5 0.5 0.5" childclass="left_tetheria_rh">
-                    <geom name="left_tetheria_mount_visual" pos="0.04 -0.01 -0.012" quat="0.4085 -0.5730 0.5730 -0.4085" class="left_hand_visual" mesh="left_tetheria_mount" />
-                    <geom name="left_tetheria_mount_collision_0" size="0.002 0.025 0.005" pos="0.0405 -0.02 0.009" quat="0.5734623417 0 0.8192319224 0" type="box" />
-                    <geom name="left_tetheria_mount_collision_1" size="0.005 0.010 0.005" pos="0.045 -0.053 0.002" quat="-0.4987168014 0.6499403818 0.349101751 0.4549582613" type="box" />
-                    <site name="left_grasp_site" pos="0.11 0 0.03" group="4" />
-                    <body name="left_palm" pos="0.04 -0.01 -0.015" quat="0.4056 -0.5792 0.5792 -0.4056">
+                  <site name="left_grasp_site" pos="0 -0.03 0.14" group="4" />
+                  <body name="left_palm" pos="0 0 0" quat="1 0 0 0" childclass="left_tetheria_rh">
            
             <geom type="mesh" class="left_hand_visual" mesh="left_frame_link" />
             <geom name="left_palm_collision_1" size="0.006 0.006 0.006" pos="0.031 0.0045 0.096" quat="0.5 -0.5 0.5 0.5" type="box" />
@@ -625,19 +600,18 @@
                     <site name="left_th_tendon1_ip_s0" pos="0 0.0106 0.002" group="4" size="0.001" />
                     <geom name="left_th_tendon1_ip_g0" rgba="0 1 0 1" size="0.0025 0.005" pos="0 0.008 0.002" quat="0.7071067812 0 -0.7071067812 0" type="cylinder" class="left_hand_visual" group="2" />
                     <site name="left_th_tendon1_ip_s1" pos="0 0.0003 0.0115" group="4" size="0.0001" />
-                  </body>
-                </body>
-              </body>
-            </body>
-            </body>
-                  </body>
-                </body>
-              </body>
-            </body>
-          </body>
-        </body>
-      </body>
-    </body>
+                  </body><!-- close left_thumb_distal_link -->
+                </body><!-- close left_thumb_proximal_link -->
+              </body><!-- close left_thumb_mcp_link -->
+            </body><!-- close left_t_link -->
+            </body><!-- close left_palm -->
+                </body><!-- close left_link6 -->
+              </body><!-- close left_link5 -->
+            </body><!-- close left_link4 -->
+          </body><!-- close left_link3 -->
+        </body><!-- close left_link2 -->
+      </body><!-- close left_link1 -->
+    </body><!-- close left_base_link -->
   </worldbody>
 
   <tendon>

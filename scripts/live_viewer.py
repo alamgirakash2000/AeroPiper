@@ -36,7 +36,6 @@ def _load_model(xml_path: Path):
   model, data, _ = loader()
   return loader, model, data
 
-
 def main() -> None:
   args = _parse_args()
   xml_path = Path(args.mjcf).expanduser().resolve()

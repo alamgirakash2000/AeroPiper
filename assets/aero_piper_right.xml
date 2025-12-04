@@ -272,7 +272,7 @@
         <geom class="collision" mesh="link1"/>
         <body name="right_link2" quat="0.499998 0.5 -0.500002 -0.5" gravcomp="1">
           <inertial pos="0.148794 -0.00242027 0.00175155" quat="-0.0249063 0.70684 0.00803509 0.706889" mass="0.290889" diaginertia="0.00177549 0.00173142 0.00014552"/>
-          <joint name="joint2" axis="0 0 1" range="0 3.14"/>
+          <joint name="joint2" axis="0 0 1" range="0 3.14" ref="1.5708"/>
           <geom mesh="link2_0" material="gray_mat" class="visual"/>
           <geom mesh="link2_1" material="darker_gray_mat" class="visual"/>
           <geom mesh="link2_2" material="darker_gray_mat" class="visual"/>
@@ -308,7 +308,7 @@
           <geom mesh="link2" class="collision"/>
           <body name="right_link3" pos="0.28358 0.028726 0" quat="0.998726 0 0 0.0504536" gravcomp="1">
             <inertial pos="-0.0996835 0.0349477 0.000508026" quat="0.0777021 0.702287 -0.0990541 0.700674" mass="0.290848" diaginertia="0.000241946 0.000222224 0.000100384"/>
-            <joint name="joint3" pos="0 0 0" axis="0 0 1" range="-2.697 0"/>
+            <joint name="joint3" pos="0 0 0" axis="0 0 1" range="-2.697 0" ref="-1.5708"/>
             <geom mesh="link3_0" material="darker_gray_mat" class="visual"/>
             <geom mesh="link3_1" material="red_mat" class="visual"/>
             <geom mesh="link3_2" material="gray_mat" class="visual"/>
