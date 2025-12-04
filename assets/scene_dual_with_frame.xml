@@ -1,7 +1,7 @@
 <mujoco model="arm_hand_scene_dual_with_frame">
   <compiler angle="radian" meshdir="combined_arm_hand/assets"/>
 
-  <option integrator="implicitfast" cone="elliptic" impratio="10" timestep="0.01">
+  <option integrator="implicitfast" cone="elliptic" impratio="10" timestep="0.01" gravity="0 0 0">
     <flag eulerdamp="disable" />
   </option>
 
@@ -30,8 +30,8 @@
     <!-- Frame on floor -->
     <body name="frame" pos="0 0 -0.084775">
       <geom name="frame_geom" type="mesh" mesh="frame_mesh" rgba="0.2 0.2 0.8 1"/>
-      <body name="right_arm_mount_frame" pos="0.25 -0.15 1.335" quat="0 1 0 0"/>
-      <body name="left_arm_mount_frame" pos="0.25 0.15 1.335" quat="0 1 0 0"/>
+      <body name="right_arm_mount_frame" pos="0.21 -0.20 1.335" quat="0 1 0 0"/>
+      <body name="left_arm_mount_frame" pos="0.21 0.20 1.335" quat="0 1 0 0"/>
     </body>
   </worldbody>
 
@@ -41,5 +41,9 @@
   </equality>
 
   <keyframe>
+    <!-- Home pose: arm joints at mid values, fingers at zero -->
+    <key name="home"
+         qpos="0 1.57 -1.35 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.57 -1.35 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"
+         ctrl="0 1.57 -1.35 0 0 0 0 0 0 0 0 0 0 0 1.57 -1.35 0 0 0 0 0 0 0 0 0 0"/>
   </keyframe>
 </mujoco>

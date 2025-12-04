@@ -129,8 +129,8 @@
 
   <default>
     <default class="piper">
-      <joint frictionloss="0.3" armature="0.005"/>
-      <position inheritrange="1" forcerange="-100 100"/>
+      <joint frictionloss="2.0" armature="0.005" damping="20.0"/>
+      <position inheritrange="1" forcerange="-100 100" kp="100"/>
       <default class="finger">
         <joint frictionloss="0" type="slide"/>
         <position forcerange="-10 10"/>
@@ -240,7 +240,7 @@
 
   <worldbody>
     <!-- Robot will be placed in scene -->
-    <body name="right_base_link" childclass="piper" gravcomp="1" pos="0.21 -0.15 1.250225" quat="0 1 0 0">
+    <body name="right_base_link" childclass="piper" gravcomp="1" pos="0.21 -0.20 1.250225" quat="0 1 0 0">
       <inertial pos="-0.00979275 1.82906e-06 0.04101" quat="0.692988 -0.137524 -0.137826 0.69416" mass="0.162549" diaginertia="0.000269445 0.000227478 0.000221437"/>
       <geom class="visual" density="0" mesh="base_link" material="gray_mat"/>
       <geom class="collision" mesh="base_link"/>
@@ -251,7 +251,7 @@
         <geom class="collision" mesh="link1"/>
         <body name="right_link2" quat="0.499998 0.5 -0.500002 -0.5" gravcomp="1">
           <inertial pos="0.148794 -0.00242027 0.00175155" quat="-0.0249063 0.70684 0.00803509 0.706889" mass="0.290889" diaginertia="0.00177549 0.00173142 0.00014552"/>
-          <joint name="joint2" axis="0 0 1" range="0 3.14" ref="1.5708"/>
+          <joint name="joint2" axis="0 0 1" range="0 3.14"/>
           <geom mesh="link2_0" material="gray_mat" class="visual"/>
           <geom mesh="link2_1" material="darker_gray_mat" class="visual"/>
           <geom mesh="link2_2" material="darker_gray_mat" class="visual"/>
@@ -287,7 +287,7 @@
           <geom mesh="link2" class="collision"/>
           <body name="right_link3" pos="0.28358 0.028726 0" quat="0.998726 0 0 0.0504536" gravcomp="1">
             <inertial pos="-0.0996835 0.0349477 0.000508026" quat="0.0777021 0.702287 -0.0990541 0.700674" mass="0.290848" diaginertia="0.000241946 0.000222224 0.000100384"/>
-            <joint name="joint3" pos="0 0 0" axis="0 0 1" range="-2.697 0" ref="-1.5708"/>
+            <joint name="joint3" pos="0 0 0" axis="0 0 1" range="-2.697 0"/>
             <geom mesh="link3_0" material="darker_gray_mat" class="visual"/>
             <geom mesh="link3_1" material="red_mat" class="visual"/>
             <geom mesh="link3_2" material="gray_mat" class="visual"/>
@@ -766,12 +766,12 @@
   </tendon>
 
   <actuator>
-    <position name="joint1" joint="joint1" class="piper" kp="80" kv="5"/>
-    <position name="joint2" joint="joint2" class="piper" kp="80" kv="5"/>
-    <position name="joint3" joint="joint3" class="piper" kp="80" kv="5"/>
-    <position name="joint4" joint="joint4" class="piper" kp="40" kv="5"/>
-    <position name="joint5" joint="joint5" class="piper" kp="10" kv="1.5"/>
-    <position name="joint6" joint="joint6" class="piper" kp="10" kv="1.5"/>
+    <position name="joint1" joint="joint1" class="piper" kp="500" kv="50"/>
+    <position name="joint2" joint="joint2" class="piper" kp="500" kv="50"/>
+    <position name="joint3" joint="joint3" class="piper" kp="500" kv="50"/>
+    <position name="joint4" joint="joint4" class="piper" kp="300" kv="30"/>
+    <position name="joint5" joint="joint5" class="piper" kp="100" kv="10"/>
+    <position name="joint6" joint="joint6" class="piper" kp="100" kv="10"/>
 
     <position name="right_thumb_A_cmc_abd" joint="right_thumb_cmc_abd" class="thumb_cmc" kp="1" />
     <position name="right_th1_A_tendon" tendon="th_tendon1" ctrlrange="0.026152 0.038389" kp="10000" />

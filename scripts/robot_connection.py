@@ -29,10 +29,10 @@ def deg_to_units(degrees):
 
 # Positions (degrees)
 HOME = [0, 0, 0, 0, 0, 20]
-POINT_A = [10, 20, -15, 0, 15, 0]
+POINT_A = [10, 20, -15, 0, 15, 35]
 POINT_B = [-15, 30, -25, 0, 20, 0]
 POINT_C = [20, 35, -30, 5, 25, -10]
-POINT_D = [-10, 25, -20, -5, 18, 0]
+POINT_D = [-10, 25, -20, -5, 18, 30]
 
 # Gestures (7 DOF) - Tuned values from working trajectory
 # Format: [j0, j1, j2, j3_index, j4_middle, j5_ring, j6_pinkie]
