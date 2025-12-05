@@ -125,6 +125,7 @@
     <mesh name="left_thumb_proximal_link" content_type="model/stl" file="left_thumb_proximal_link.STL" />
     <mesh name="left_thumb_distal_link" content_type="model/stl" file="left_thumb_distal_link.STL" />
     <mesh name="left_thumb_tip_link" content_type="model/stl" file="left_thumb_tip_link.STL" />
+    <mesh name="intel_realsense_d435_left" file="../../frame/camera_d435.obj" scale="0.028 0.028 0.028"/>
   </asset>
 
   <default>
@@ -338,6 +339,23 @@
                 <geom mesh="left_link5_7" material="left_gray_mat" class="left_visual" />
                 <geom mesh="left_link5_8" material="left_gray_mat" class="left_visual" />
                 <geom mesh="left_link5" class="left_collision" />
+                <!-- PickNik RealSense mount installed between joints 5 and 6 -->
+                <!-- RealSense mount raised above wrist per common top-of-wrist layouts -->
+                <body name="left_cam_mount" pos="-0.05 0.055 0" quat="0  -0.707105 0 0.707108" gravcomp="1">
+                  <geom name="left_cam_bracket" type="box" pos="0 0 -0.015"
+                        size="0.02 0.02 0.02" rgba="0.15 0.45 0.85 1"
+                        contype="0" conaffinity="0"/>
+                  <geom name="left_cam_standoff" type="capsule" pos="0 0 0.015"
+                        size="0.007 0.015" rgba="0.15 0.45 0.85 1"
+                        contype="0" conaffinity="0"/>
+                  <geom name="left_realsense_mesh" type="mesh" mesh="intel_realsense_d435_left"
+                        pos="0 0.01 0.045" quat="0 0 0.707107 0.707107"
+                        rgba="0.9 0.9 0.95 1" contype="0" conaffinity="0"/>
+                  <camera name="left_wrist_cam" pos="0 0 0.035"
+                          quat="0.707107 0.707107 0 0"
+                          fovy="42.5"/>
+                  <site name="left_wrist_cam_optical" pos="0 0 0.035" size="0.003" group="4"/>
+                </body>
                 <body name="left_link6" pos="0 0.091 0.0014165" quat="0 0 -0.707105 -0.707108" gravcomp="1">
                   <inertial pos="0.0010312 0.0121761 0.0315481" quat="0.0230402 0.707091 0.0373344 0.70576" mass="1.2" diaginertia="0.001 0.001 0.001" />
                   <joint name="left_joint6" axis="0 0 1" range="-3.14 3.14" />

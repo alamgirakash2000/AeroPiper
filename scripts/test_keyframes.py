@@ -3,10 +3,17 @@
 Test script to verify keyframes and joint control in the dual arm scene.
 """
 
+import time
+
+import os
+import sys
+
 import mujoco
 import mujoco.viewer
 import numpy as np
-import time
+
+sys.path.append(os.path.join(os.path.dirname(__file__), "module"))
+from camera_preview import CameraPreviewer
 
 def main():
     # Load the model
@@ -75,6 +82,7 @@ def main():
     print("  - Press 'Ctrl+P' to print current joint positions")
     print("  - Press number keys (1, 2, etc.) to load keyframes")
     print("  - Press Space to pause/unpause simulation")
+    print("  - Live wrist camera windows (cv2) if installed; else no camera preview.")
     
     # Precompute which actuators directly drive joints (skip tendon actuators).
     # We'll hard-clamp those joints to their control values each frame so they
@@ -91,6 +99,8 @@ def main():
         print(f"  actuator {act_id}: joint '{jname}'")
     
     # Launch viewer
+    previewer = CameraPreviewer(camera_names=["right_wrist_cam", "left_wrist_cam"], interval=0.0, log_prefix="test_keyframes")
+
     with mujoco.viewer.launch_passive(model, data) as viewer:
         while viewer.is_running():
             step_start = time.time()
@@ -104,12 +114,16 @@ def main():
             data.qvel[:] = 0
             mujoco.mj_forward(model, data)
 
+            # Optional live camera previews (OpenCV if available)
             viewer.sync()
+            previewer.update(viewer)
 
             # Simple pacing to avoid a busy loop
             time_until_next_step = model.opt.timestep - (time.time() - step_start)
             if time_until_next_step > 0:
                 time.sleep(time_until_next_step)
+
+    previewer.close()
 
 if __name__ == "__main__":
     main()

@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
-import mujoco
-import mujoco.viewer
-import numpy as np
 import os
 import sys
 import signal
 import atexit
+import time
+
+import mujoco
+import mujoco.viewer
+import numpy as np
 
 # Allow importing from scripts/module
 sys.path.append(os.path.join(os.path.dirname(__file__), "module"))
 from physical_to_mujoco import physical_to_mujoco
+from camera_preview import CameraPreviewer
 
 MODEL_PATH = "assets/scene.xml"
 
@@ -138,6 +141,8 @@ ARM_AMPL_LEFT = np.array([0.35, 0.25, 0.3, 0.22, 0.18, 0.15])
 ARM_FREQ_LEFT = np.array([0.26, 0.22, 0.28, 0.17, 0.2, 0.14])
 ARM_PHASE_LEFT = np.array([0.6, 0.4, 0.2, 0.8, 0.3, 0.5])  # radians
 
+previewer = CameraPreviewer(camera_names=["right_wrist_cam", "left_wrist_cam"], interval=0.0, log_prefix="dual_arm_sequence")
+
 try:
     with mujoco.viewer.launch_passive(model, data) as viewer:
         t = 0.0
@@ -178,9 +183,13 @@ try:
             if waypoint_idx != last_waypoint_idx:
                 last_waypoint_idx = waypoint_idx
 
+            # Optional live camera previews (OpenCV if available)
             viewer.sync()
+            previewer.update(viewer)
             t += model.opt.timestep
 
 except KeyboardInterrupt:
     print("\nInterrupted by user")
+finally:
+    previewer.close()
 
