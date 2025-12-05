@@ -4,6 +4,7 @@ import sys
 import signal
 import atexit
 import time
+import argparse
 
 import mujoco
 import mujoco.viewer
@@ -13,6 +14,11 @@ import numpy as np
 sys.path.append(os.path.join(os.path.dirname(__file__), "module"))
 from physical_to_mujoco import physical_to_mujoco
 from camera_preview import CameraPreviewer
+
+# Parse command-line arguments
+parser = argparse.ArgumentParser(description="Dual-arm hand trajectory demo")
+parser.add_argument("--camera", action="store_true", help="Show wrist camera feeds in OpenCV windows")
+args = parser.parse_args()
 
 MODEL_PATH = "assets/scene.xml"
 
@@ -141,9 +147,8 @@ ARM_AMPL_LEFT = np.array([0.35, 0.25, 0.3, 0.22, 0.18, 0.15])
 ARM_FREQ_LEFT = np.array([0.26, 0.22, 0.28, 0.17, 0.2, 0.14])
 ARM_PHASE_LEFT = np.array([0.6, 0.4, 0.2, 0.8, 0.3, 0.5])  # radians
 
-# Enable OpenCV camera preview windows (shows both wrist cameras)
-# Set interval higher (e.g. 0.1) to reduce performance impact, or False to disable
-ENABLE_CAMERA_PREVIEW = True
+# Enable OpenCV camera preview if --camera flag is provided
+ENABLE_CAMERA_PREVIEW = args.camera
 
 if ENABLE_CAMERA_PREVIEW:
     previewer = CameraPreviewer(
@@ -154,14 +159,13 @@ if ENABLE_CAMERA_PREVIEW:
         width=320,  # Smaller resolution for better performance
         height=240,
     )
-
-print("\n=== Camera Views ===")
-if ENABLE_CAMERA_PREVIEW:
+    print("\n=== Camera Views ===")
     print("  Wrist camera feeds will open in OpenCV windows")
-    print("  Close the cv2 windows to hide them")
+    print("  Close the cv2 windows to hide them\n")
 else:
-    print("  Set ENABLE_CAMERA_PREVIEW = True to see wrist camera feeds")
-print()
+    print("\n=== Camera Views ===")
+    print("  Use --camera flag to see wrist camera feeds")
+    print("  Example: python scripts/dual_arm_sequence.py --camera\n")
 
 try:
     with mujoco.viewer.launch_passive(model, data) as viewer:

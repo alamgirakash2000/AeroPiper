@@ -4,6 +4,7 @@ Test script to verify keyframes and joint control in the dual arm scene.
 """
 
 import time
+import argparse
 
 import os
 import sys
@@ -16,6 +17,10 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "module"))
 from camera_preview import CameraPreviewer
 
 def main():
+    # Parse command-line arguments
+    parser = argparse.ArgumentParser(description="Test keyframes and joint control")
+    parser.add_argument("--camera", action="store_true", help="Show wrist camera feeds in OpenCV windows")
+    args = parser.parse_args()
     # Load the model
     model = mujoco.MjModel.from_xml_path("assets/scene.xml")
     data = mujoco.MjData(model)
@@ -98,8 +103,8 @@ def main():
     for _, act_id, jname in joint_actuators:
         print(f"  actuator {act_id}: joint '{jname}'")
     
-    # Enable OpenCV camera preview windows (shows both wrist cameras)
-    ENABLE_CAMERA_PREVIEW = True
+    # Enable OpenCV camera preview if --camera flag is provided
+    ENABLE_CAMERA_PREVIEW = args.camera
     if ENABLE_CAMERA_PREVIEW:
         previewer = CameraPreviewer(
             model,
@@ -114,6 +119,8 @@ def main():
     print("  Use sliders in MuJoCo viewer to control joints")
     if ENABLE_CAMERA_PREVIEW:
         print("  Wrist camera feeds will open in OpenCV windows")
+    else:
+        print("  Use --camera flag to see wrist camera feeds")
     print("  Press ESC or close window to exit\n")
 
     with mujoco.viewer.launch_passive(model, data) as viewer:
