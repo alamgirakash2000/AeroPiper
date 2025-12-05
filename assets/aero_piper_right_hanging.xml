@@ -349,10 +349,10 @@
                   <geom name="right_realsense_mesh" type="mesh" mesh="intel_realsense_d435_right"
                         pos="0 0.01 0.045" quat="0 0 0.707107 0.707107"
                         rgba="0.9 0.9 0.95 1" contype="0" conaffinity="0"/>
-                  <camera name="right_wrist_cam" pos="0 0 0.035"
-                          quat="0 0.707107 0 0.707107"
-                          fovy="42.5"/>
-                  <site name="right_wrist_cam_optical" pos="0 0 0.035" size="0.003" group="4"/>
+                  <camera name="right_wrist_cam" pos="0 0.01 0.045"
+                          quat="0.5 0.5 -0.5 0.5"
+                          fovy="69"/>
+                  <site name="right_wrist_cam_optical" pos="0 0.01 0.045" size="0.003" group="4"/>
                 </body>
                 <body name="right_link6" pos="0 0.091 0.0014165" quat="0 0 -0.707105 -0.707108" gravcomp="1">
                   <inertial pos="0.0010312 0.0121761 0.0315481" quat="0.0230402 0.707091 0.0373344 0.70576" mass="1.2" diaginertia="0.001 0.001 0.001"/>

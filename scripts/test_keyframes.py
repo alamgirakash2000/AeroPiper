@@ -98,8 +98,23 @@ def main():
     for _, act_id, jname in joint_actuators:
         print(f"  actuator {act_id}: joint '{jname}'")
     
-    # Launch viewer
-    previewer = CameraPreviewer(camera_names=["right_wrist_cam", "left_wrist_cam"], interval=0.0, log_prefix="test_keyframes")
+    # Enable OpenCV camera preview windows (shows both wrist cameras)
+    ENABLE_CAMERA_PREVIEW = True
+    if ENABLE_CAMERA_PREVIEW:
+        previewer = CameraPreviewer(
+            model,
+            camera_names=["right_wrist_cam", "left_wrist_cam"],
+            interval=0.05,  # ~20 FPS update rate
+            log_prefix="test_keyframes",
+            width=320,
+            height=240,
+        )
+
+    print("\n=== Controls ===")
+    print("  Use sliders in MuJoCo viewer to control joints")
+    if ENABLE_CAMERA_PREVIEW:
+        print("  Wrist camera feeds will open in OpenCV windows")
+    print("  Press ESC or close window to exit\n")
 
     with mujoco.viewer.launch_passive(model, data) as viewer:
         while viewer.is_running():
@@ -114,16 +129,20 @@ def main():
             data.qvel[:] = 0
             mujoco.mj_forward(model, data)
 
-            # Optional live camera previews (OpenCV if available)
+            # Sync viewer
             viewer.sync()
-            previewer.update(viewer)
+            
+            # Optional camera preview (if enabled)
+            if ENABLE_CAMERA_PREVIEW:
+                previewer.update(data)
 
             # Simple pacing to avoid a busy loop
             time_until_next_step = model.opt.timestep - (time.time() - step_start)
             if time_until_next_step > 0:
                 time.sleep(time_until_next_step)
 
-    previewer.close()
+    if ENABLE_CAMERA_PREVIEW:
+        previewer.close()
 
 if __name__ == "__main__":
     main()

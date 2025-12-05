@@ -85,8 +85,6 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 
 Ultralytics will automatically download public checkpoints (default `yolo11n-pose.pt`) the first time you run the hand tracker. To use a custom model, place the `.pt` file in `gesture_control/module/weights/` and pass `--yolo-weights /abs/path/to/file.pt`.
 
-> **Need per-finger YOLO weights?** The stock `yolo11n-pose.pt` model is trained on COCO body pose (17 keypoints) and cannot emit finger joints. Train or download a 21-keypoint hand pose checkpoint (e.g., `yolo pose train data=hand-keypoints.yaml model=yolo11n-pose.pt epochs=100 imgsz=640`) and run with `--yolo-weights /path/to/best.pt`. Until a hand-specific checkpoint is provided, the script automatically warns and falls back to MediaPipe landmarks.
-
 
 ## Work with the Physical Robot
 After connecting the Aero Hand to the PiPER arm using the 3D printed mount, plug in both devices and run:

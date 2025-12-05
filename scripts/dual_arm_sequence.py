@@ -141,7 +141,27 @@ ARM_AMPL_LEFT = np.array([0.35, 0.25, 0.3, 0.22, 0.18, 0.15])
 ARM_FREQ_LEFT = np.array([0.26, 0.22, 0.28, 0.17, 0.2, 0.14])
 ARM_PHASE_LEFT = np.array([0.6, 0.4, 0.2, 0.8, 0.3, 0.5])  # radians
 
-previewer = CameraPreviewer(camera_names=["right_wrist_cam", "left_wrist_cam"], interval=0.0, log_prefix="dual_arm_sequence")
+# Enable OpenCV camera preview windows (shows both wrist cameras)
+# Set interval higher (e.g. 0.1) to reduce performance impact, or False to disable
+ENABLE_CAMERA_PREVIEW = True
+
+if ENABLE_CAMERA_PREVIEW:
+    previewer = CameraPreviewer(
+        model,
+        camera_names=["right_wrist_cam", "left_wrist_cam"],
+        interval=0.033,  # ~30 FPS update rate
+        log_prefix="dual_arm_sequence",
+        width=320,  # Smaller resolution for better performance
+        height=240,
+    )
+
+print("\n=== Camera Views ===")
+if ENABLE_CAMERA_PREVIEW:
+    print("  Wrist camera feeds will open in OpenCV windows")
+    print("  Close the cv2 windows to hide them")
+else:
+    print("  Set ENABLE_CAMERA_PREVIEW = True to see wrist camera feeds")
+print()
 
 try:
     with mujoco.viewer.launch_passive(model, data) as viewer:
@@ -183,13 +203,18 @@ try:
             if waypoint_idx != last_waypoint_idx:
                 last_waypoint_idx = waypoint_idx
 
-            # Optional live camera previews (OpenCV if available)
+            # Sync viewer
             viewer.sync()
-            previewer.update(viewer)
+            
+            # Optional camera preview (if enabled)
+            if ENABLE_CAMERA_PREVIEW:
+                previewer.update(data)
+            
             t += model.opt.timestep
 
 except KeyboardInterrupt:
     print("\nInterrupted by user")
 finally:
-    previewer.close()
+    if ENABLE_CAMERA_PREVIEW:
+        previewer.close()
 
