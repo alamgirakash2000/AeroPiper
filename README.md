@@ -1,7 +1,7 @@
-# AeroPiper: TetherIA Aero Hand + AgileX PiPER Arm
+# AeroPiper: A Dual-Hand Manipulation System
 
 <p align="center">
-  <img src="images/sequence.gif" alt="Demo" width="90%"/>
+  <img src="images/demo.gif" alt="Demo" width="90%"/>
 </p>
 
 ## Images
@@ -13,125 +13,141 @@
 </p>
 
 ### Description
-This repository provides end-to-end code and guidance to integrate the TetherIA Aero Hand with the AgileX PiPER 6‑DOF robotic arm. AeroPiper lets you:
-- Initialize and exercise the physical arm and hand with one command.
-- Run MuJoCo simulations of left, right, or dual arm+hand configurations.
-- Prototype gesture sequences and arm trajectories with clear, well-structured examples.
-
-Use this as a practical, open resource for research, education, and rapid prototyping with PiPER + Aero in both real and simulated environments.
+AeroPiper is a dual-hand manipulation system that combines two AgileX PiPER 6‑DOF robotic arms with two TetherIA Aero Open hands, targeting dexterous, human-like manipulation tasks. The project pairs high-fidelity MuJoCo simulation assets with reinforcement-learning baselines so you can prototype, train, and evaluate complex bimanual skills rapidly—then transfer them to real hardware.
 
 ### Official resources
 - **TetherIA Aero Hand Open Docs**: `https://docs.tetheria.ai`
 - **AgileX PiPER product page**: `https://global.agilex.ai/products/piper`
 - **MuJoCo documentation**: `https://mujoco.readthedocs.io`
 
-## Folder Structure
-High-level layout (images omitted):
-
-```text
-.
-├── assets/
-│   ├── scene.xml                # main dual scene with frame
-│   ├── aero_piper_left_hanging.xml
-│   ├── aero_piper_right_hanging.xml
-│   ├── frame/
-│   └── xml_utils/
-├── scripts/
-│   ├── live_viewer.py
-│   ├── test_keyframes.py
-│   ├── dual_arm_sequence.py
-│   ├── run_aero_sequence.py
-│   └── robot_connection.py
-├── gesture_control/
-│   ├── hands_control.py
-│   ├── arms_and_hands_control.py
-│   └── physical_hand_gesture.py
-├── images/
-└── README.md
-```
-
-Brief descriptions:
-- `assets/`: MuJoCo scenes (dual with frame, hanging variants) and arena helpers.
-- `scripts/`:
-  - `live_viewer.py`: hot-reload viewer for MJCF edits.
-  - `test_keyframes.py`: mid-pose clamp; lets you drive joints via viewer sliders.
-  - `dual_arm_sequence.py`: scripted dual-arm + hands trajectory demo.
-  - `run_aero_sequence.py`: wrapper to launch predefined trajectories.
-  - `robot_connection.py`: physical bring-up helper for CAN/serial.
-- `gesture_control/`:
-  - `hands_control.py`: dual-hand webcam control driving both simulated hands.
-  - `arms_and_hands_control.py`: webcam control of arms + hands together.
-  - `physical_hand_gesture.py`: physical hand gesture mapping utility.
+---
 
 ## Installation
-- **Python**: 3.13.5
-- **NumPy**: 1.26.4
-- **MuJoCo**: 3.3.7
 
-Install required packages:
-
+### Using pip (recommended)
 ```bash
-pip install piper_sdk
-pip install aero-open-sdk
-pip install mujoco
+# Clone the repository
+git clone https://github.com/alamgirakash2000/AeroPiper
+cd AeroPiper
+
+# Install dependencies
+pip install -r requirements.txt
+
+# For MuJoCo viewer support (optional but recommended)
+pip install 'mujoco[glfw]'
 ```
 
-#### For the gesture control
+### Using conda
 ```bash
-pip install opencv-python mediapipe ultralytics
-# Install the Torch build that matches your CUDA driver (example for CUDA 12.1)
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+# Create environment from file
+conda env create -f environment.yml
+
+# Activate environment
+conda activate AeroPiper
+
+# For MuJoCo viewer support (optional but recommended)
+pip install 'mujoco[glfw]'
 ```
 
-Ultralytics will automatically download public checkpoints (default `yolo11n-pose.pt`) the first time you run the hand tracker. To use a custom model, place the `.pt` file in `gesture_control/module/weights/` and pass `--yolo-weights /abs/path/to/file.pt`.
-
-
-## Work with the Physical Robot
-After connecting the Aero Hand to the PiPER arm using the 3D printed mount, plug in both devices and run:
-
+### Verify Installation
 ```bash
-python scripts/robot_connection.py
-python scripts/reach_task.py
-python scripts/run_aero_sequence.py
+python -c "import torch; import mujoco; import numpy; print('Installation successful!')"
 ```
 
-The scripts will automatically:
-- Setup CAN interface for PiPER arm (requires sudo, will prompt for password)
-- Fix serial port permissions for Aero Hand (requires sudo, will prompt for password)
-- Initialize both devices
-- Run test movements
+---
 
-This takes ~3 minutes and calibrates the hand to its zero positions.
+<p style="color:red"><strong>This system is currently under development. For now, only training of the Pick & Place task is available.</strong></p>
 
-#### Physical hand gesture mapper:
-  ```bash
-  python gesture_control/physical_hand_gesture.py
-  ```
+## Quick Start
 
-## Work in MuJoCo
+### Train (Pick & Place)
+```bash
+python scripts/train.py --task pick_place
+# Add --randomize for harder random cube/target positions
+```
 
-- Inspect joints/keyframes and drive via sliders (arms clamped, fingers responsive):
-  ```bash
-  python scripts/test_keyframes.py
-  ```
-- Run scripted dual-arm + hands trajectory demo:
-  ```bash
-  python scripts/dual_arm_sequence.py
-  ```
+### Evaluate
+```bash
+python scripts/eval_pick_place.py --checkpoint checkpoints/pick_place/YOUR_RUN/model_final.pt
+```
 
-## Gesture Control
+---
 
-- Dual-hand tracking to drive both simulated hands:
-  ```bash
-  python gesture_control/hands_control.py
-  ```
-  Tracks both hands with MediaPipe; maps to finger actuators in `assets/scene.xml`. Use `--no-preview` for less lag; tweak `--smoothing` / `--update-threshold` for responsiveness.
+## Action Space (6D)
 
-- Arms + hands together from one webcam:
-  ```bash
-  python gesture_control/arms_and_hands_control.py
-  ```
-  Controls arms (shoulder/elbow/wrist) and fingers in one loop; uses the same scene.
-  ```
-  Utility for mapping captured gestures to physical hand commands.
+```
+action = [arm_select, j1, j2, j3, j4, j5]
+```
 
+| Index | Description |
+|-------|-------------|
+| 0 | `arm_select`: >= 0 for right arm, < 0 for left arm |
+| 1-5 | Joint controls for joints 1-5 |
+| (6) | Joint 6 is always held at 0 |
+
+---
+
+## Training Options
+
+### Default Values (no flags needed)
+| Parameter | Default |
+|-----------|---------|
+| `--num-envs` | 64 |
+| `--iterations` | 10000 |
+| `--lr` | 1e-4 |
+| `--max-episode-steps` | 500 |
+| `--device` | cuda |
+| Curriculum | Disabled (train reach+place together) |
+
+### Optional Flags
+
+| Flag | Description |
+|------|-------------|
+| `--randomize` | Random cube/target positions each episode |
+| `--curriculum` | Enable curriculum (learn reach first, then place) |
+| `--resume PATH` | Resume from checkpoint |
+| `--iterations N` | Override iteration count |
+| `--lr X` | Override learning rate |
+| `--num-envs N` | Override number of parallel environments |
+| `--max-episode-steps N` | Override episode length |
+
+
+## Evaluation Options
+
+### Default Values
+| Parameter | Default |
+|-----------|---------|
+| `--episodes` | 5 |
+| `--max-steps` | 500 |
+| Movement | Realtime (smooth) |
+| Actions | Stochastic |
+
+### Optional Flags
+
+| Flag | Description |
+|------|-------------|
+| `--randomize` | Random positions each episode |
+| `--deterministic` | Use deterministic actions |
+| `--fast` | Fast mode (skip smooth movement) |
+| `--no-viewer` | Run without visualization |
+| `--episodes N` | Number of episodes |
+| `--max-steps N` | Max steps per episode |
+
+### Examples
+
+**Basic evaluation:**
+```bash
+python scripts/eval_pick_place.py --checkpoint YOUR_MODEL.pt
+```
+
+**Test generalization with random positions:**
+```bash
+python scripts/eval_pick_place.py --checkpoint YOUR_MODEL.pt --randomize --episodes 10
+```
+
+**Fast headless evaluation:**
+```bash
+python scripts/eval_pick_place.py --checkpoint YOUR_MODEL.pt --fast --no-viewer --episodes 100
+```
+
+---

@@ -1,0 +1,19 @@
+# AeroPiper: A Dual-Hand Manipulation System
+# Python 3.8+ required
+
+# Core dependencies
+torch>=2.0.0
+numpy>=1.24.0
+mujoco>=3.0.0
+
+# Optional dependencies for visualization
+# Install with: pip install mujoco[glfw] for viewer support
+
+# Optional experiment tracking
+wandb>=0.15.0
+
+# Development tools (optional)
+# pytest>=7.0.0
+# black>=23.0.0
+# flake8>=6.0.0
+

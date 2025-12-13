@@ -1,0 +1,19 @@
+<mujoco model="AeroPiperPickPlace">
+  <include file="aeropiper_base_scene.xml"/>
+
+  <asset>
+    <material name="cube_mat" rgba="0.1 0.6 0.9 1"/>
+  </asset>
+
+  <worldbody>
+    <!-- Movable cube (original position) -->
+    <body name="cube" pos="0.60 0 -0.50">
+      <joint name="cube_free" type="free"/>
+      <geom name="cube_geom" type="box" size="0.025 0.025 0.025" mass="0.05" material="cube_mat"/>
+      <site name="cube_site" pos="0 0 0" size="0.01" rgba="0 0 0 0" group="4"/>
+    </body>
+
+    <!-- Placement target (near robot frame) -->
+    <site name="cube_target" pos="0.60 -0.30 0.70" size="0.025" rgba="0.1 0.8 0.2 0.4" group="1"/>
+  </worldbody>
+</mujoco>

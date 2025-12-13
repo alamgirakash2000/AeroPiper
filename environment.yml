@@ -1,0 +1,14 @@
+name: AeroPiper
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python>=3.8
+  - pytorch>=2.0.0
+  - numpy>=1.24.0
+  - pip
+  - pip:
+    - mujoco>=3.0.0
+    - wandb>=0.15.0
+

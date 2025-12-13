@@ -1,45 +1,45 @@
 #!/usr/bin/env python3
+"""
+Dual-arm hand trajectory demo running on the AeroPiper base environment.
+
+- Drives arm joints through gentle oscillations around a mid pose.
+- Drives both hands through the canned finger trajectories from the original demo.
+- Uses the base environment (no task objects) so it can be run anywhere.
+"""
+
+import argparse
 import os
 import sys
-import signal
-import atexit
 import time
-import argparse
+from pathlib import Path
 
 import mujoco
 import mujoco.viewer
 import numpy as np
 
-# Allow importing from scripts/module
-sys.path.append(os.path.join(os.path.dirname(__file__), "module"))
-from physical_to_mujoco import physical_to_mujoco
-from camera_preview import CameraPreviewer
+# -----------------------------------------------------------------------------
+# Path setup: make script runnable from repo root or elsewhere
+# -----------------------------------------------------------------------------
+SCRIPT_DIR = Path(__file__).resolve().parent
+REPO_ROOT = SCRIPT_DIR.parent  # .../aeropiper_playground
+MODULE_DIR = SCRIPT_DIR / "module"
+for p in (REPO_ROOT, MODULE_DIR):
+    if str(p) not in sys.path:
+        sys.path.insert(0, str(p))
 
-# Parse command-line arguments
-parser = argparse.ArgumentParser(description="Dual-arm hand trajectory demo")
-parser.add_argument("--camera", action="store_true", help="Show wrist camera feeds in OpenCV windows")
-args = parser.parse_args()
+# Optional noise suppression: avoid warp/menagerie downloads by default.
+os.environ.setdefault("MUJOCO_MENAGERIE_PATH", "/tmp/mj_empty")
+os.makedirs(os.environ["MUJOCO_MENAGERIE_PATH"], exist_ok=True)
+os.environ.setdefault("MUJOCO_WARP_DISABLE", "1")
 
-MODEL_PATH = "assets/scene.xml"
+from physical_to_mujoco import physical_to_mujoco  # type: ignore
+from envs import AeroPiperBase
 
-# Load the dual scene (right + left) with frame
-model = mujoco.MjModel.from_xml_path(MODEL_PATH)
-data = mujoco.MjData(model)
-
-# Actuator index layout (include order: right first, then left)
-# right: [0..5]=arm(6), [6..12]=hand(7)
-# left:  [13..18]=arm(6), [19..25]=hand(7)
-RIGHT_ARM_SLICE = slice(0, 6)
-RIGHT_HAND_SLICE = slice(6, 13)
-LEFT_ARM_SLICE = slice(13, 19)
-LEFT_HAND_SLICE = slice(19, 26)
-
-# Mid/home position for arms (matches MJCF keyframe)
+# -----------------------------------------------------------------------------
+# Trajectory definition (same as original demo)
+# -----------------------------------------------------------------------------
 ARM_MID = np.array([0.0, 1.57, -1.35, 0.0, 0.0, 0.0])
 
-# Physical trajectory format: ([7 DOF values], duration_seconds)
-# Physical/MuJoCo order (matched): [thumb_abd, thumb_flex, thumb_tendon, index, middle, ring, pinky]
-# Values in [0..100] where 0=open/straight, 100=closed/bent
 PHYSICAL_TRAJECTORY_NAMED = [
     ("Open Palm",                              [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 1.0),
     ("Touch Pinkie",                           [100.0, 35.0, 23.0, 0.0, 0.0, 0.0, 50.0], 2),
@@ -66,10 +66,7 @@ ACTIVE_TRAJECTORY_NAMED = PHYSICAL_TRAJECTORY_NAMED
 
 
 def get_trajectory_control(t: float, trajectory_named, transition_time=0.3):
-    """
-    Get control values for a hand following a trajectory at time t.
-    Returns control values for the 7 hand DOF.
-    """
+    """Get control values for a hand following a trajectory at time t."""
     total_time = sum(duration for _, _, duration in trajectory_named)
     t_loop = t % total_time
 
@@ -97,128 +94,93 @@ def get_trajectory_control(t: float, trajectory_named, transition_time=0.3):
     return physical_to_mujoco(trajectory_named[0][1])
 
 
-def hard_clamp_joint_actuators(model: mujoco.MjModel, data: mujoco.MjData):
-    """Force joint-actuated DoFs to match their ctrl values exactly."""
-    for act_id in range(model.nu):
-        if model.actuator_trntype[act_id] == mujoco.mjtTrn.mjTRN_JOINT:
-            j_id = model.actuator_trnid[act_id][0]
-            qadr = model.jnt_qposadr[j_id]
-            data.qpos[qadr] = data.ctrl[act_id]
+def main():
+    parser = argparse.ArgumentParser(description="Dual-arm AeroPiper sequence demo")
+    parser.add_argument("--camera", action="store_true", help="Show wrist camera feeds in OpenCV windows (if available)")
+    args = parser.parse_args()
+
+    env = AeroPiperBase()
+    env.reset_robot_to_home()
+
+    model, data = env.model, env.data
+
+    # Build actuator index slices from env actuator order
+    right_arm_slice = slice(0, len(env.right_arm_actuators))
+    right_hand_slice = slice(
+        len(env.right_arm_actuators),
+        len(env.right_arm_actuators) + len(env.right_hand_actuators),
+    )
+    left_arm_slice = slice(
+        right_hand_slice.stop,
+        right_hand_slice.stop + len(env.left_arm_actuators),
+    )
+    left_hand_slice = slice(
+        left_arm_slice.stop,
+        left_arm_slice.stop + len(env.left_hand_actuators),
+    )
+
+    # Arm oscillation parameters (matching original demo magnitudes)
+    ARM_AMPL_RIGHT = np.array([0.5, 0.35, 0.25, 0.2, 0.2, 0.2])
+    ARM_FREQ_RIGHT = np.array([0.3, 0.2, 0.25, 0.15, 0.18, 0.12])
+    ARM_PHASE_RIGHT = np.zeros(6)
+
+    ARM_AMPL_LEFT = np.array([0.35, 0.25, 0.3, 0.22, 0.18, 0.15])
+    ARM_FREQ_LEFT = np.array([0.26, 0.22, 0.28, 0.17, 0.2, 0.14])
+    ARM_PHASE_LEFT = np.array([0.6, 0.4, 0.2, 0.8, 0.3, 0.5])
+
+    # Initialize arms at mid pose, open hands
+    data.ctrl[:] = 0
+    data.qpos[:] = 0
     data.qvel[:] = 0
+    data.ctrl[right_arm_slice] = ARM_MID
+    data.ctrl[left_arm_slice] = ARM_MID
     mujoco.mj_forward(model, data)
 
+    def hard_clamp_joint_actuators():
+        """Force joint-actuated DoFs to match their ctrl values exactly (mirrors original demo)."""
+        for act_id in range(model.nu):
+            if model.actuator_trntype[act_id] == mujoco.mjtTrn.mjTRN_JOINT:
+                j_id = model.actuator_trnid[act_id][0]
+                qadr = model.jnt_qposadr[j_id]
+                data.qpos[qadr] = data.ctrl[act_id]
+                data.qvel[qadr] = 0.0
+        mujoco.mj_forward(model, data)
 
-# Signal handling
-def noop_cleanup():
-    pass
+    # Clamp once at start
+    hard_clamp_joint_actuators()
+
+    # Camera preview stub (only viewer here)
+    if args.camera:
+        print("Wrist camera feeds are defined in the model; viewer renders them. (No OpenCV preview wired here.)")
+
+    dt = model.opt.timestep
+    total_traj_time = sum(d for _, _, d in ACTIVE_TRAJECTORY_NAMED)
+
+    try:
+        with mujoco.viewer.launch_passive(model, data) as viewer:
+            t = 0.0
+            while viewer.is_running():
+                # Arm motion
+                arm_offset_right = ARM_AMPL_RIGHT * np.sin(2 * np.pi * ARM_FREQ_RIGHT * t + ARM_PHASE_RIGHT)
+                arm_offset_left = ARM_AMPL_LEFT * np.sin(2 * np.pi * ARM_FREQ_LEFT * t + ARM_PHASE_LEFT)
+                data.ctrl[right_arm_slice] = ARM_MID + arm_offset_right
+                data.ctrl[left_arm_slice] = ARM_MID + arm_offset_left
+
+                # Hand trajectories (same for both hands)
+                hand_ctrl = get_trajectory_control(t, ACTIVE_TRAJECTORY_NAMED)
+                data.ctrl[right_hand_slice] = hand_ctrl
+                data.ctrl[left_hand_slice] = hand_ctrl
+
+                # Step physics (uses env clamping/hold behavior)
+                mujoco.mj_step(model, data)
+                # Hard clamp arm joints like the original script
+                hard_clamp_joint_actuators()
+
+                viewer.sync()
+                t += dt
+    except KeyboardInterrupt:
+        pass
 
 
-atexit.register(noop_cleanup)
-
-
-def signal_handler(signum, frame):
-    print(f"\nReceived signal {signum}.")
-    exit(0)
-
-
-signal.signal(signal.SIGINT, signal_handler)
-signal.signal(signal.SIGTERM, signal_handler)
-
-
-# Calculate total trajectory time
-total_traj_time = sum(duration for _, _, duration in ACTIVE_TRAJECTORY_NAMED)
-
-
-# Initialize to mid pose (arms) and open fingers
-data.ctrl[:] = 0
-data.qpos[:] = 0
-data.qvel[:] = 0
-data.ctrl[RIGHT_ARM_SLICE] = ARM_MID
-data.ctrl[LEFT_ARM_SLICE] = ARM_MID
-hard_clamp_joint_actuators(model, data)
-
-# Arm oscillation around mid to make movement more visible
-# Right arm and left arm use different amplitudes/phases so they don't mirror.
-ARM_AMPL_RIGHT = np.array([0.5, 0.35, 0.25, 0.2, 0.2, 0.2])
-ARM_FREQ_RIGHT = np.array([0.3, 0.2, 0.25, 0.15, 0.18, 0.12])
-ARM_PHASE_RIGHT = np.zeros(6)
-
-ARM_AMPL_LEFT = np.array([0.35, 0.25, 0.3, 0.22, 0.18, 0.15])
-ARM_FREQ_LEFT = np.array([0.26, 0.22, 0.28, 0.17, 0.2, 0.14])
-ARM_PHASE_LEFT = np.array([0.6, 0.4, 0.2, 0.8, 0.3, 0.5])  # radians
-
-# Enable OpenCV camera preview if --camera flag is provided
-ENABLE_CAMERA_PREVIEW = args.camera
-
-if ENABLE_CAMERA_PREVIEW:
-    previewer = CameraPreviewer(
-        model,
-        camera_names=["right_wrist_cam", "left_wrist_cam"],
-        interval=0.033,  # ~30 FPS update rate
-        log_prefix="dual_arm_sequence",
-        width=320,  # Smaller resolution for better performance
-        height=240,
-    )
-    print("\n=== Camera Views ===")
-    print("  Wrist camera feeds will open in OpenCV windows")
-    print("  Close the cv2 windows to hide them\n")
-else:
-    print("\n=== Camera Views ===")
-    print("  Use --camera flag to see wrist camera feeds")
-    print("  Example: python scripts/dual_arm_sequence.py --camera\n")
-
-try:
-    with mujoco.viewer.launch_passive(model, data) as viewer:
-        t = 0.0
-        last_waypoint_idx = -1
-
-        while viewer.is_running():
-            # More noticeable arm motion around the mid pose
-            arm_offset_right = ARM_AMPL_RIGHT * np.sin(2 * np.pi * ARM_FREQ_RIGHT * t + ARM_PHASE_RIGHT)
-            arm_offset_left = ARM_AMPL_LEFT * np.sin(2 * np.pi * ARM_FREQ_LEFT * t + ARM_PHASE_LEFT)
-            right_arm_ctrl = ARM_MID + arm_offset_right
-            left_arm_ctrl = ARM_MID + arm_offset_left
-            data.ctrl[RIGHT_ARM_SLICE] = right_arm_ctrl
-            data.ctrl[LEFT_ARM_SLICE] = left_arm_ctrl
-
-            # Get hand controls from trajectory
-            right_hand_ctrl = get_trajectory_control(t, ACTIVE_TRAJECTORY_NAMED)
-            left_hand_ctrl = get_trajectory_control(t, ACTIVE_TRAJECTORY_NAMED)
-
-            # Apply to both hands (mirrored behavior)
-            data.ctrl[RIGHT_HAND_SLICE] = right_hand_ctrl
-            data.ctrl[LEFT_HAND_SLICE] = left_hand_ctrl
-
-            # Advance physics for tendon-driven fingers and any dynamics
-            mujoco.mj_step(model, data)
-
-            # Clamp joint-actuated DoFs (arms) to ctrl (no drift)
-            hard_clamp_joint_actuators(model, data)
-
-            # Track waypoint internally (no printing)
-            t_in_cycle = t % total_traj_time
-            waypoint_idx = 0
-            acc_time = 0.0
-            for idx, (_, _, duration) in enumerate(ACTIVE_TRAJECTORY_NAMED):
-                if acc_time + duration > t_in_cycle:
-                    waypoint_idx = idx
-                    break
-                acc_time += duration
-            if waypoint_idx != last_waypoint_idx:
-                last_waypoint_idx = waypoint_idx
-
-            # Sync viewer
-            viewer.sync()
-            
-            # Optional camera preview (if enabled)
-            if ENABLE_CAMERA_PREVIEW:
-                previewer.update(data)
-            
-            t += model.opt.timestep
-
-except KeyboardInterrupt:
-    print("\nInterrupted by user")
-finally:
-    if ENABLE_CAMERA_PREVIEW:
-        previewer.close()
-
+if __name__ == "__main__":
+    main()
