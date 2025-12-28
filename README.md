@@ -24,130 +24,52 @@ AeroPiper is a dual-hand manipulation system that combines two AgileX PiPER 6‑
 
 ## Installation
 
-### Using pip (recommended)
+## Setup (conda, Python 3.10)
+
 ```bash
-# Clone the repository
-git clone https://github.com/alamgirakash2000/AeroPiper
-cd AeroPiper
-
-# Install dependencies
-pip install -r requirements.txt
-
-# For MuJoCo viewer support (optional but recommended)
-pip install 'mujoco[glfw]'
+conda create -n aeropiper python=3.10 -y
+conda activate aeropiper
+pip install -e .
 ```
 
-### Using conda
+## Install (pip-only)
+
+From the repo root:
 ```bash
-# Create environment from file
-conda env create -f environment.yml
-
-# Activate environment
-conda activate AeroPiper
-
-# For MuJoCo viewer support (optional but recommended)
-pip install 'mujoco[glfw]'
+python -m pip install -r requirements.txt
+python -m pip install -e .
 ```
 
 ### Verify Installation
 ```bash
-python -c "import torch; import mujoco; import numpy; print('Installation successful!')"
+python demos/run.py
 ```
+This file send 14 random action values to the 14 DOFs.
+
+Notes:
+- **Tkinter**: `teleop/gui.py` uses Tk. If your environment doesn't have it, install via conda (`conda install -n aeropiper tk -y`)
+  or on Ubuntu/Debian: `sudo apt-get install -y python3-tk`
 
 ---
-
-<p style="color:red"><strong>This system is currently under development. For now, only training of the Pick & Place task is available.</strong></p>
 
 ## Quick Start
 
-### Train (Pick & Place)
+### To run with any random action
 ```bash
-python scripts/train.py --task pick_place
-# Add --randomize for harder random cube/target positions
+python demos/demo_random_action.py
 ```
 
-### Evaluate
+
+### To run and integrate Teleoperation: Follow the current GUI control
 ```bash
-python scripts/eval_pick_place.py --checkpoint checkpoints/pick_place/YOUR_RUN/model_final.pt
+python teleop/gui.py
 ```
-
----
-
-## Action Space (6D)
-
-```
-action = [arm_select, j1, j2, j3, j4, j5]
-```
-
-| Index | Description |
-|-------|-------------|
-| 0 | `arm_select`: >= 0 for right arm, < 0 for left arm |
-| 1-5 | Joint controls for joints 1-5 |
-| (6) | Joint 6 is always held at 0 |
-
----
-
-## Training Options
-
-### Default Values (no flags needed)
-| Parameter | Default |
-|-----------|---------|
-| `--num-envs` | 64 |
-| `--iterations` | 10000 |
-| `--lr` | 1e-4 |
-| `--max-episode-steps` | 500 |
-| `--device` | cuda |
-| Curriculum | Disabled (train reach+place together) |
-
-### Optional Flags
-
-| Flag | Description |
-|------|-------------|
-| `--randomize` | Random cube/target positions each episode |
-| `--curriculum` | Enable curriculum (learn reach first, then place) |
-| `--resume PATH` | Resume from checkpoint |
-| `--iterations N` | Override iteration count |
-| `--lr X` | Override learning rate |
-| `--num-envs N` | Override number of parallel environments |
-| `--max-episode-steps N` | Override episode length |
+This GUI file control 6+6 DOFs for both arms, and two control values applies the all the 6 DOFs of each Gripper.
 
 
-## Evaluation Options
+### Camera Integration
 
-### Default Values
-| Parameter | Default |
-|-----------|---------|
-| `--episodes` | 5 |
-| `--max-steps` | 500 |
-| Movement | Realtime (smooth) |
-| Actions | Stochastic |
-
-### Optional Flags
-
-| Flag | Description |
-|------|-------------|
-| `--randomize` | Random positions each episode |
-| `--deterministic` | Use deterministic actions |
-| `--fast` | Fast mode (skip smooth movement) |
-| `--no-viewer` | Run without visualization |
-| `--episodes N` | Number of episodes |
-| `--max-steps N` | Max steps per episode |
-
-### Examples
-
-**Basic evaluation:**
 ```bash
-python scripts/eval_pick_place.py --checkpoint YOUR_MODEL.pt
+python demos/demo_with_camera.py
 ```
-
-**Test generalization with random positions:**
-```bash
-python scripts/eval_pick_place.py --checkpoint YOUR_MODEL.pt --randomize --episodes 10
-```
-
-**Fast headless evaluation:**
-```bash
-python scripts/eval_pick_place.py --checkpoint YOUR_MODEL.pt --fast --no-viewer --episodes 100
-```
-
----
+This demo displays the simulated Intel RealSense D435 camera feeds from both wrists alongside the robot simulation. The cameras are already integrated into the AeroPiper model. Press 'q' to quit, 'r' to reset, or SPACE to pause/unpause.

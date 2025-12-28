@@ -3,7 +3,7 @@ __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
-*.pyd
+*.so
 
 # Build / packaging
 build/
@@ -48,4 +48,3 @@ runs_*/
 
 # Misc
 .mujoco_log.txt
-

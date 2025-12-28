@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aeropiper"
+version = "0.1.0"
+description = "AeroPiper simulation package (simplified robosuite fork)"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+  "mujoco>=2.3.7",
+  "numpy",
+  "scipy",
+  "numba",
+  "termcolor",
+  "Pillow",
+  "opencv-python",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+

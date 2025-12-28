@@ -1,0 +1,5 @@
+recursive-include aeropiper/controllers/config *.json
+recursive-include aeropiper/renderers/config *.json
+recursive-include aeropiper/models/assets *
+
+
