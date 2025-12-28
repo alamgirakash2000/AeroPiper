@@ -19,6 +19,7 @@ AeroPiper is a dual-hand manipulation system that combines two AgileX PiPER 6‑
 - **TetherIA Aero Hand Open Docs**: `https://docs.tetheria.ai`
 - **AgileX PiPER product page**: `https://global.agilex.ai/products/piper`
 - **MuJoCo documentation**: `https://mujoco.readthedocs.io`
+- **Robosuite**: `https://robosuite.ai/`
 
 ---
 
