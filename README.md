@@ -74,3 +74,18 @@ This GUI file control 6+6 DOFs for both arms, and two control values applies the
 python demos/demo_with_camera.py
 ```
 This demo displays the simulated Intel RealSense D435 camera feeds from both wrists alongside the robot simulation. The cameras are already integrated into the AeroPiper model. Press 'q' to quit, 'r' to reset, or SPACE to pause/unpause.
+
+## VR Teleoperation
+
+### Setup
+1. Launch SteamVR and connect Meta Quest
+2. Run teleoperation:
+```bash
+python teleop/vr_control.py
+```
+
+### Calibration
+To calibrate and record poses:
+```bash
+python teleop/vr_module/vr_joint_calibration.py
+```

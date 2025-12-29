@@ -1,0 +1,37 @@
+VR JOINT CALIBRATION - KEY POSES RECORD
+Created: 2025-12-29 13:43:50
+Calibration JSON: C:\Users\alamg\projects\AeroPiper\teleop\vr_module\vr_joint_calibration.json
+
+Joint order:
+  [j1(base rot), j2(shoulder), j3(elbow), j4(wrist1 rot), j5(wrist2), j6(wrist3 rot)]
+
+POSE: resting
+  LEFT: target_norm=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    vr_pos_mean=[-0.1630047   1.00371305 -0.2923306 ]
+    vr_quat_mean(wxyz)=[ 0.9639763   0.22131639  0.14116855 -0.04289749]
+    pos_std_max=0.005632 m, n=501
+  RIGHT: target_norm=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    vr_pos_mean=[ 0.12628376  1.00774093 -0.30772968]
+    vr_quat_mean(wxyz)=[ 0.9553292   0.24407884 -0.13611669  0.09614511]
+    pos_std_max=0.007689 m, n=501
+
+POSE: free_hands
+  LEFT: target_norm=[0.0, 0.0, -1.0, 0.0, 0.0, 0.0]
+    vr_pos_mean=[-0.24932244  0.5826461  -0.0925617 ]
+    vr_quat_mean(wxyz)=[ 0.87442263 -0.43200257  0.06006853 -0.21248674]
+    pos_std_max=0.004764 m, n=501
+  RIGHT: target_norm=[0.0, 0.0, -1.0, 0.0, 0.0, 0.0]
+    vr_pos_mean=[ 0.2460748   0.58009861 -0.14335826]
+    vr_quat_mean(wxyz)=[ 0.85667367 -0.38876578 -0.02994459  0.33774947]
+    pos_std_max=0.013312 m, n=501
+
+POSE: titanic_t_pose
+  LEFT: target_norm=[-0.6, 1.0, -1.0, 0.0, 0.0, 0.0]
+    vr_pos_mean=[-0.85385573  1.27858419  0.13147487]
+    vr_quat_mean(wxyz)=[ 0.5695091  -0.161562    0.69927539 -0.40071317]
+    pos_std_max=0.014586 m, n=501
+  RIGHT: target_norm=[0.6, 1.0, -1.0, 0.0, 0.0, 0.0]
+    vr_pos_mean=[0.77430775 1.32872217 0.03876408]
+    vr_quat_mean(wxyz)=[ 0.5202065  -0.17605286 -0.72087527  0.42276404]
+    pos_std_max=0.015967 m, n=501
+
